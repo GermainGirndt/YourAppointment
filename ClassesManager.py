@@ -1,10 +1,11 @@
 
 class ClassesManager():
 
-	students = []
+	def __init__(self):
+		self.students = []
 
 	def addStudent(self):
-		student_Forename = input("Digite o nome do estudante: ")
+		student_Forename = Validators().validateForename()
 		student_Surname = input("Digite o sobrenome do estudante: ")
 		student_Birthday = input("Digite a data de nascimento do estudante (DD-MM-AA): ")
 		student_CPF = input("Digite o CPF do estudante: ")
@@ -15,9 +16,7 @@ class ClassesManager():
 		
 		student_Register = [student_Forename, student_Surname, student_Birthday, student_CPF, student_Adress_StreetAndNumber, student_Adress_Others, student_Adress_City, student_Adress_State]
 
-		ClassesManager().students.append(student_Register)
-
-		print(test)
+		self.students.append(student_Register)
 
 
 	def removeStudent():
@@ -29,11 +28,31 @@ class ClassesManager():
 	def removeClasses():
 		pass
 
-	def addStudent():
-		pass
-	
 	def removeStudent():
 		pass
+	
+class Validators():
 
+	@staticmethod
+	def validateForename():
+		forename = input("Digite o nome do estudante: ")
+		if not isinstance(forename, str):
+			raise TypeError
 
+		checks = 0
+		while not Validators().isAlphaOrHasSpace(forename) or len(forename) > 20:
+			while not Validators().isAlphaOrHasSpace(forename):
+				print("Invalid input. The name muss contain only letter or spaces.")
+				forename = input("Type the student's name: ")
+			while len(forename) > 20:
+				print("Invalid input. The name may not be longer than 20 characters.")
+				forename = input("Type the student's name: ")
+
+		return forename
+
+	@staticmethod
+	def isAlphaOrHasSpace(forename):
+		if forename.replace(" ", "").isalpha():
+			return True
+		return False
 

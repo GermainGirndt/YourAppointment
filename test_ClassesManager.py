@@ -1,42 +1,58 @@
 import unittest
 from unittest import mock
-import os
 from ClassesManager import ClassesManager as erp
+import sys
+from io import StringIO
 
 class test_AddStudent(unittest.TestCase):
+
+	rightInputs1 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
+	
+	rightInputs2 = ["Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201", "Rio de Janeiro", "RJ"]
 
 	def setUp(self):
 		self.erp_Instance = erp()
 
-	def test_addStudent_correct(self):
-		inputs = ["Germain", "Martins Pereira", "25-03-2020", "016.206.476-48", "Dois de Julho, 229", "casa", "Governador Valadares", "MG"]
-		with mock.patch('ClassesManager.input', side_effect=inputs):
-			self.erp_Instance.addStudent()
-		self.assertEqual(self.erp_Instance.students[-1], inputs)
-		
 
-	def test_addStudent_incorrect_numbers(self):
+	def test_add1Student_pass(self):
+		with mock.patch('ClassesManager.input', side_effect=self.rightInputs1):
+			self.erp_Instance.addStudent()
+		self.assertEqual(self.erp_Instance.students[0], self.rightInputs1)
+
+
+	def test_add2Students_pass(self):
+
+		with mock.patch('ClassesManager.input', side_effect=self.rightInputs2):
+			self.erp_Instance.addStudent()
+		self.assertEqual(self.erp_Instance.students[0], self.rightInputs2)
+
+
+		with mock.patch('ClassesManager.input', side_effect=self.rightInputs1):
+			self.erp_Instance.addStudent()
+		self.assertEqual(self.erp_Instance.students[1], self.rightInputs1)
+
+
+		self.assertEqual(self.erp_Instance.students, [self.rightInputs2, self.rightInputs1])
+
+
+
+	def test_add1Student_fails_numbers(self):
 		wrongInput = "João2"
-		rightInputs = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
 		inputedInputs = [wrongInput, "João", "da Silva", "23-05-1978", "297.586.890-10", "Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
+		exceptionEsperada = "Invalid input. The name muss contain only letter or spaces."
+		self.held, sys.stdout = sys.stdout, StringIO()
 		with mock.patch('ClassesManager.input', side_effect=inputedInputs):
 			self.erp_Instance.addStudent()
-		self.assertEqual(self.erp_Instance.students[-1], rightInputs)
-
-
-		resultadoErrado = "1"
-		exceptionEsperada = "Entrada inválida. A razão social só deve conter letras e espaços."
-		self.held, sys.stdout = sys.stdout, StringIO()
-		with mock.patch('ProjetoFinalDeploy.input', side_effect=[resultadoErrado, self.resultadoCorreto]):
-			self.assertEqual(pf.empresa_CadastrarRazaoSocial(), self.resultadoCorreto)
+		self.assertEqual(self.erp_Instance.students[-1], self.rightInputs1)
 		mensagensPrintadas = sys.stdout.getvalue()
 		self.assertIn(exceptionEsperada, mensagensPrintadas)
 		self.held, sys.stdout = None, None
 
 
 
-		def tearDown(self):
-			self.erp_Instance = None
+	def tearDown(self):
+		self.erp_Instance = "la"
+	
 
 
 class test_RemoveStudent(unittest.TestCase):
