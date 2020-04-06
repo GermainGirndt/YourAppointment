@@ -36,7 +36,7 @@ class test_AddStudent(unittest.TestCase):
 
 
 
-	def test_add1Student_fails_numbers(self):
+	def test_add1Student_fails_numbersInString(self):
 		wrongInput = "João2"
 		inputedInputs = [wrongInput, "João", "da Silva", "23-05-1978", "297.586.890-10", "Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
 		exceptionEsperada = "Invalid input. The name muss contain only letter or spaces."
@@ -48,6 +48,12 @@ class test_AddStudent(unittest.TestCase):
 		self.assertIn(exceptionEsperada, mensagensPrintadas)
 		self.held, sys.stdout = None, None
 
+
+	def test_add1Student_fails_TypeError(self):
+		wrongInput = 2
+		inputedInputs = [wrongInput, "João", "da Silva", "23-05-1978", "297.586.890-10", "Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
+		with mock.patch('ClassesManager.input', side_effect=inputedInputs):
+			self.assertRaises(TypeError, lambda x:self.erp_Instance.addStudent())
 
 
 	def tearDown(self):
@@ -78,7 +84,7 @@ class test_addClass(unittest.TestCase):
 class test_setNotification(unittest.TestCase):
 	pass
 
-class test_setAllNotification(unittest.TestCase):
+class test_setAllNtoification(unittest.TestCase):
 	pass
 
 if __name__ == "__main__":

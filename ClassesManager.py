@@ -6,7 +6,7 @@ class ClassesManager():
 
 	def addStudent(self):
 		student_Forename = Validators().validateForename()
-		student_Surname = input("Digite o sobrenome do estudante: ")
+		student_Surname = Validators().validateSurname()
 		student_Birthday = input("Digite a data de nascimento do estudante (DD-MM-AA): ")
 		student_CPF = input("Digite o CPF do estudante: ")
 		student_Adress_StreetAndNumber = input("Digite a rua e o número do local de residência do estudante: ")
@@ -31,28 +31,40 @@ class ClassesManager():
 	def removeStudent():
 		pass
 	
+
 class Validators():
 
 	@staticmethod
 	def validateForename():
-		forename = input("Digite o nome do estudante: ")
-		if not isinstance(forename, str):
-			raise TypeError
+		forename = input("Enter the student's Forename: ")
+		validatedForename = Validators().validateString_AlphaAndSpaces(forename)
+		return validatedForename
 
-		checks = 0
-		while not Validators().isAlphaOrHasSpace(forename) or len(forename) > 20:
-			while not Validators().isAlphaOrHasSpace(forename):
+	@staticmethod
+	def validateSurname():
+		forename = input("Enter the student's Surname: ")
+		validatedForename = Validators().validateString_AlphaAndSpaces(forename)
+		return validatedForename
+
+
+
+
+
+
+	@staticmethod
+	def validateString_AlphaAndSpaces(toValidate:str):
+
+		while not Validators().isAlphaOrHasSpace(toValidate) or len(toValidate) > 25:
+			while not Validators().isAlphaOrHasSpace(toValidate):
 				print("Invalid input. The name muss contain only letter or spaces.")
-				forename = input("Type the student's name: ")
-			while len(forename) > 20:
-				print("Invalid input. The name may not be longer than 20 characters.")
-				forename = input("Type the student's name: ")
+				toValidate = input("Type the student's name: ")
+			while len(toValidate) > 20:
+				print("Invalid input. The name may not be longer than 25 characters.")
+				toValidate = input("Type the student's name: ")
 
-		return forename
+		return toValidate
 
 	@staticmethod
 	def isAlphaOrHasSpace(forename):
-		if forename.replace(" ", "").isalpha():
-			return True
-		return False
+		return True if forename.replace(" ", "").isalpha() else False
 
