@@ -19,18 +19,32 @@ class ClassesManager():
 		self.students.append(student_Register)
 
 
-	def removeStudent():
-		pass
-		
-	def addClasses():
+	
+	def removeStudentById(self):
+		id = input("Entre a Id do estudante a ser excluído: ")
+		if not isinstance(id, str):
+			raise(TypeError)
+		try:
+			del self.students[int(id)]
+		except(IndexError):
+			print(f"The inputed value is out of range. Please input a index from 0 to {len(self.students)}")
+			id = input("Entre a Id do estudante a ser excluído: ")
+			del self.students[int(id)]
+
+
+
+
+	def removeStudentByName(self):
+		return 1
+	
+
+
+	def addClasses(self):
 		pass
 	
-	def removeClasses():
+	def removeClasses(self):
 		pass
 
-	def removeStudent():
-		pass
-	
 
 class Validators():
 
