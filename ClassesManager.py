@@ -1,26 +1,25 @@
 
 class ClassesManager():
 
+
 	def __init__(self):
 		self.students = []
 
-	def addStudent(self):
-		student_Forename = Validators().validateForename()
-		student_Surname = Validators().validateSurname()
-		student_Birthday = input("Digite a data de nascimento do estudante (DD-MM-AA): ")
-		student_CPF = input("Digite o CPF do estudante: ")
-		student_Adress_StreetAndNumber = input("Digite a rua e o número do local de residência do estudante: ")
-		student_Adress_Others = input("Digite o apartamento ou outra referência (NA = Não aplica): ")
-		student_Adress_City = input("Digite a cidade do estudante: ")
-		student_Adress_State = input("Digite o estado do estudante: ")
+	def add_student(self):
+		student_forename = ConsoleGetter().validateForename()
+		student_surname = ConsoleGetter().validateSurname()
+		student_birthday = input("Digite a data de nascimento do estudante (DD-MM-AA): ")
+		student_cpf = input("Digite o CPF do estudante: ")
+		student_adress_street_and_number = input("Digite a rua e o número do local de residência do estudante: ")
+		student_adress_others = input("Digite o apartamento ou outra referência (NA = Não aplica): ")
+		student_adress_city = input("Digite a cidade do estudante: ")
+		student_adress_state = input("Digite o estado do estudante: ")
 		
-		student_Register = [student_Forename, student_Surname, student_Birthday, student_CPF, student_Adress_StreetAndNumber, student_Adress_Others, student_Adress_City, student_Adress_State]
+		student_register = [student_forename, student_surname, student_birthday, student_cpf, student_adress_street_and_number, student_adress_others, student_adress_city, student_adress_state]
 
-		self.students.append(student_Register)
-
-
+		self.students.append(student_register)
 	
-	def removeStudentById(self):
+	def remove_student_by_id(self):
 		id = input("Entre a Id do estudante a ser excluído: ")
 		if not isinstance(id, str):
 			raise(TypeError)
@@ -31,14 +30,9 @@ class ClassesManager():
 			id = input("Entre a Id do estudante a ser excluído: ")
 			del self.students[int(id)]
 
-
-
-
 	def removeStudentByName(self):
 		return 1
 	
-
-
 	def addClasses(self):
 		pass
 	
@@ -46,39 +40,37 @@ class ClassesManager():
 		pass
 
 
+class ConsoleGetter():
+
+
+	@staticmethod
+	def get_forename():
+		forename = input("Enter the student's Forename: ")
+		validated_forename = Validators().validate_string_alpha_spaces_len25(forename)
+		return validated_forename
+
+	@staticmethod
+	def get_surname():
+		surname = input("Enter the student's Surname: ")
+		validated_surname = Validators().validate_string_alpha_spaces_len25(surname)
+		return validated_surname
+
+
 class Validators():
 
-	@staticmethod
-	def validateForename():
-		forename = input("Enter the student's Forename: ")
-		validatedForename = Validators().validateString_AlphaAndSpaces(forename)
-		return validatedForename
 
 	@staticmethod
-	def validateSurname():
-		forename = input("Enter the student's Surname: ")
-		validatedForename = Validators().validateString_AlphaAndSpaces(forename)
-		return validatedForename
-
-
-
-
-
-
-	@staticmethod
-	def validateString_AlphaAndSpaces(toValidate:str):
-
-		while not Validators().isAlphaOrHasSpace(toValidate) or len(toValidate) > 25:
-			while not Validators().isAlphaOrHasSpace(toValidate):
+	def validate_string_alpha_and_spaces_len25(string_to_validate:str):
+		while not Validators().is_alpha_or_has_spaces(string_to_validate) or len(string_to_validate) > 25:
+			while not Validators().is_alpha_or_has_spaces(string_to_validate):
 				print("Invalid input. The name muss contain only letter or spaces.")
-				toValidate = input("Type the student's name: ")
-			while len(toValidate) > 20:
+				string_to_validate = input("Enter the student's name: ")
+			while len(string_to_validate) > 20:
 				print("Invalid input. The name may not be longer than 25 characters.")
-				toValidate = input("Type the student's name: ")
+				string_to_validate = input("Enter the student's name: ")
 
-		return toValidate
+		return string_to_validate
 
 	@staticmethod
-	def isAlphaOrHasSpace(forename):
+	def is_alpha_or_has_spaces(forename):
 		return True if forename.replace(" ", "").isalpha() else False
-
