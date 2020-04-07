@@ -6,8 +6,8 @@ class ClassesManager():
 		self.students = []
 
 	def add_student(self):
-		student_forename = ConsoleGetter().validateForename()
-		student_surname = ConsoleGetter().validateSurname()
+		student_forename = ConsoleGetter().get_forename()
+		student_surname = ConsoleGetter().get_surname()
 		student_birthday = input("Digite a data de nascimento do estudante (DD-MM-AA): ")
 		student_cpf = input("Digite o CPF do estudante: ")
 		student_adress_street_and_number = input("Digite a rua e o número do local de residência do estudante: ")
@@ -30,13 +30,13 @@ class ClassesManager():
 			id = input("Entre a Id do estudante a ser excluído: ")
 			del self.students[int(id)]
 
-	def removeStudentByName(self):
+	def remove_student_by_name(self):
 		return 1
 	
-	def addClasses(self):
+	def add_classes(self):
 		pass
 	
-	def removeClasses(self):
+	def remove_classes(self):
 		pass
 
 
@@ -46,13 +46,13 @@ class ConsoleGetter():
 	@staticmethod
 	def get_forename():
 		forename = input("Enter the student's Forename: ")
-		validated_forename = Validators().validate_string_alpha_spaces_len25(forename)
+		validated_forename = Validators().validate_string_alpha_and_spaces_len25(forename)
 		return validated_forename
 
 	@staticmethod
 	def get_surname():
 		surname = input("Enter the student's Surname: ")
-		validated_surname = Validators().validate_string_alpha_spaces_len25(surname)
+		validated_surname = Validators().validate_string_alpha_and_spaces_len25(surname)
 		return validated_surname
 
 
