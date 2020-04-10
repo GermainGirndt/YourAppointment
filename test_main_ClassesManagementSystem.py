@@ -151,8 +151,6 @@ class test_remove_student_by_index(unittest.TestCase):
 		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
 		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
 
-
-
 	def tearDown(self):
 		self.erp_instance = None
 
