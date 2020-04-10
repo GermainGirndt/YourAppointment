@@ -12,6 +12,7 @@ class test_add_student(unittest.TestCase):
 
 	def setUp(self):
 		self.erp_instance = Erp()
+		self.assertEqual(len(self.erp_instance.students),0)
 
 	def test_add_1_student_passes(self):
 		with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_0):
@@ -24,6 +25,8 @@ class test_add_student(unittest.TestCase):
 		with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_0):
 			self.erp_instance.add_student()
 		self.assertEqual(self.erp_instance.students[0], self.right_inputs_student_id_0)
+
+		self.assertEqual(len(self.erp_instance.students), 1)
 
 		with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_1):
 			self.erp_instance.add_student()
@@ -115,7 +118,7 @@ class test_remove_student_by_index(unittest.TestCase):
 		self.assertEqual(len(self.erp_instance.students), 1)
 		self.assertNotIn(self.right_inputs_student_id_1, self.erp_instance.students)
 
-'''
+
 	def test_remove_1_student_by_index_fails_inexisting_index(self):
 		wrong_input_id = "200"
 		right_input_id = "0"
@@ -130,11 +133,8 @@ class test_remove_student_by_index(unittest.TestCase):
 		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
 		self.held, sys.stdout = None, None
 
-
-
-
-	def test_remove_1_student_by_index_fails_valueerror(self):
-		wrong_input = ["lala"]
+	def test_remove_1_student_by_index_fails_type_error(self):
+		wrong_input = [5]
 		with mock.patch('builtins.input', side_effect=wrong_input):
 			with self.assertRaises(TypeError):
 				self.erp_instance.remove_student_by_index()
@@ -142,11 +142,20 @@ class test_remove_student_by_index(unittest.TestCase):
 		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
 		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
 
+	def test_remove_1_student_by_index_fails_value_error(self):
+		wrong_input = ["lala"]
+		with mock.patch('builtins.input', side_effect=wrong_input):
+			with self.assertRaises(ValueError):
+				self.erp_instance.remove_student_by_index()
+		self.assertEqual(len(self.erp_instance.students), 2)
+		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
+		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
+
+
+
 	def tearDown(self):
 		self.erp_instance = None
 
-'''
-'''
 class test_showStudents(unittest.TestCase):
 	pass
 
@@ -174,7 +183,6 @@ class test_setNotification(unittest.TestCase):
 class test_setAllNtoification(unittest.TestCase):
 	pass
 
-'''
 
 if __name__ == "__main__":
 	unittest.main()

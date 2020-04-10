@@ -8,6 +8,7 @@ class ConsoleRemover():
 
 		inputed_student_index = input("Enter the index of the student to be removed: ")
 		Validators().raise_type_error_if_not_string(inputed_student_index)
+		Validators().raise_value_error_if_not_numeric(inputed_student_index)
 		if max_range == 0:
 			print("There are no students to be removed.")
 		else:

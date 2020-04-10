@@ -6,8 +6,13 @@ class Validators():
 	@staticmethod
 	def raise_type_error_if_not_string(inputedValue):
 		if not isinstance(inputedValue,str):
-			raise TypeError()
-			
+			raise TypeError(f"The value '{inputedValue}' is not a string")
+
+	@staticmethod
+	def raise_value_error_if_not_numeric(inputedValue):
+		if not inputedValue.isnumeric():
+			raise ValueError(f"The value '{inputedValue}' is not numeric")
+
 	@staticmethod
 	def validate_alpha_and_spaces_len25(string_to_validate):
 		while not Validators().is_alpha_or_has_spaces(string_to_validate) or len(string_to_validate) > 25:

@@ -5,7 +5,7 @@ class ClassesManagementSystem():
 
 
 	def __init__(self):
-		self.students = [["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa", "São Paulo", "SP"]]
+		self.students = []
 
 	def add_student(self):
 		student_forename = ConsoleGetter().get_student_forename()
