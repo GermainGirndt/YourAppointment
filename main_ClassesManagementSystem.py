@@ -38,4 +38,4 @@ class ClassesManagementSystem():
 
 if __name__ == "__main__":
 	system = ClassesManagementSystem()
-	system.remove_student_by_index()
+	system.add_student()

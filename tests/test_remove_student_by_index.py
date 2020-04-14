@@ -1,8 +1,11 @@
+import sys
+sys.path.append("..") sys.path.append("..") #Enables the relative import
+from io import StringIO
 import unittest
 from unittest import mock
 from main_ClassesManagementSystem import ClassesManagementSystem as Erp
-import sys
-from io import StringIO
+
+
 
 class test_remove_student_by_index(unittest.TestCase):
 
@@ -22,7 +25,7 @@ class test_remove_student_by_index(unittest.TestCase):
 		rightId = "0"
 		with mock.patch('builtins.input', side_effect=rightId):
 			self.erp_instance.remove_student_by_index()
-		self.assertEqual(len(self.erp_instance.students), 1)
+		self.assertEqual(len(self.erp_instance.students),1)
 		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
 
 	def test_remove_1_student_by_index_passes2(self):
