@@ -1,5 +1,6 @@
-from ConsoleGetter import ConsoleGetter
-from ConsoleRemover import ConsoleRemover
+from console.console_getter  import ConsoleGetter
+from console.console_remover import ConsoleRemover
+
 
 class ClassesManagementSystem():
 

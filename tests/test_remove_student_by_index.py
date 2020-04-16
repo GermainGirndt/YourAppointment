@@ -1,10 +1,9 @@
 import sys
-sys.path.append("..") sys.path.append("..") #Enables the relative import
 from io import StringIO
 import unittest
 from unittest import mock
-from main_ClassesManagementSystem import ClassesManagementSystem as Erp
-
+import set_test_path
+from app import ClassesManagementSystem as Erp
 
 
 class test_remove_student_by_index(unittest.TestCase):
@@ -48,7 +47,7 @@ class test_remove_student_by_index(unittest.TestCase):
 		self.assertIn(expected_exception, printed_messages)
 		self.assertEqual(len(self.erp_instance.students), 1)
 		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
-		self.held, sys.stdout = None, None
+		self.held = None #removed 'sys.stdout = None' due to issues with pycharm
 
 	def test_remove_1_student_by_index_fails_type_error(self):
 		wrong_input = [5]

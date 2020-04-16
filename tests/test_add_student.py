@@ -1,10 +1,9 @@
-import sys
-sys.path.append("..") #Enables the relative import
 from io import StringIO
 import unittest
 from unittest import mock
-from main_ClassesManagementSystem import ClassesManagementSystem as Erp
-
+import sys
+import set_test_path
+from app import ClassesManagementSystem as Erp
 
 class test_add_student(unittest.TestCase):
     right_inputs_student_id_0 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa",
@@ -42,7 +41,8 @@ class test_add_student(unittest.TestCase):
         self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
         printed_messages = sys.stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-        self.held, sys.stdout = None, None
+        self.held = None #removed 'sys.stdout = None' line due to issues with PyCharm.
+
 
     def test_add_1_student_fails_type_error(self):
         wrong_input = 2
@@ -77,7 +77,6 @@ class test_add_student(unittest.TestCase):
 
     def tearDown(self):
         self.erp_instance = None
-
 
 if __name__ == "__main__":
     unittest.main()

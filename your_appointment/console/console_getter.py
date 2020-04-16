@@ -1,4 +1,4 @@
-from Validators import Validators
+from validators.validators import Validators
 
 class ConsoleGetter():
 
@@ -18,7 +18,7 @@ class ConsoleGetter():
 
     @staticmethod
     def get_student_birthday():
-        student_birthday = input("Enter the student's birthname (DD-MM-YYYY): ")
+        student_birthday = input("Enter the student's birthday (DD-MM-YYYY): ")
         Validators().raise_type_error_if_not_string(student_birthday)
         return student_birthday
 
@@ -31,26 +31,26 @@ class ConsoleGetter():
 
     @staticmethod
     def get_student_adress_street_and_number():
-        student_adress_street_and_number = input("Digite a rua e o número do local de residência do estudante: ")
+        student_adress_street_and_number = input("Enter the street and street number: ")
         Validators().raise_type_error_if_not_string(student_adress_street_and_number)
         return student_adress_street_and_number
 
     @staticmethod
     def get_student_adress_others():
-        student_adress_others = input("Digite o apartamento ou outra referência (NA = Não aplica): ")
+        student_adress_others = input("Enter other adress information (NA = Not applies): ")
         Validators().raise_type_error_if_not_string(student_adress_others)
         return student_adress_others
 
     @staticmethod
     def get_student_adress_city():
-        student_adress_city = input("Digite a cidade do estudante: ")
+        student_adress_city = input("Enter the student's city: ")
         Validators().raise_type_error_if_not_string(student_adress_city)
         validated_student_adress_city = Validators().validate_alpha_and_spaces_len25(student_adress_city)
         return validated_student_adress_city
 
     @staticmethod
     def get_student_adress_state():
-        student_adress_state = input("Digite o estado do estudante: ")
+        student_adress_state = input("Enter the student's state: ")
         Validators().raise_type_error_if_not_string(student_adress_state)
         validated_student_adress_state = Validators().validate_alpha_and_spaces_len25(student_adress_state)
         return validated_student_adress_state

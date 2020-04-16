@@ -1,4 +1,5 @@
-from Validators import Validators
+
+from validators.validators import Validators
 
 class ConsoleRemover():
 
