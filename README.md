@@ -11,7 +11,7 @@ ERP for Classes Management
 ├── References.txt  
 ├── tests  
 │   ├── draft.py  
-│   ├── __init__.py  
+│   ├── ``__init__.py``  
 │   ├── Other_tests.py  
 │   ├── set_test_path.py  
 │   ├── test_add_student.py  
@@ -22,8 +22,8 @@ ERP for Classes Management
     │   ├── console_getter.py  
     │   ├── console_remover.py  
     │   ├── context.py  
-    │   └── __init__.py  
-    ├── __main__.py  
+    │   └── ``__init__.py``   
+    ├──`` __main__.py``  
     └── validators  
         └── validators.py  
 
