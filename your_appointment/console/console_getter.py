@@ -20,7 +20,6 @@ class ConsoleGetter():
     def get_student_birthday():
         student_birthday = input("Enter the student's birthday (DD-MM-YYYY): ")
         Validators().raise_type_error_if_not_string(student_birthday)
-        student_birthday = Validators().validate_birthday(student_birthday)
         return student_birthday
 
     @staticmethod
