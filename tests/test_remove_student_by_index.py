@@ -1,8 +1,8 @@
-import sys
-from io import StringIO
+import set_test_path
 import unittest
 from unittest import mock
-import set_test_path
+from io import StringIO
+from contextlib import redirect_stdout
 from app import ClassesManagementSystem as Erp
 
 
@@ -40,14 +40,14 @@ class test_remove_student_by_index(unittest.TestCase):
 		right_input_id = "0"
 		inputed_inputs = [wrong_input_id, right_input_id]
 		expected_exception = f"The inputed value is out of range. Please input a index from 0 to {len(self.erp_instance.students)}"
-		self.held, sys.stdout = sys.stdout, StringIO()
-		with mock.patch('builtins.input', side_effect=inputed_inputs):
-			self.erp_instance.remove_student_by_index()
-		printed_messages = sys.stdout.getvalue()
+		with redirect_stdout(StringIO()) as stdout:
+			with mock.patch('builtins.input', side_effect=inputed_inputs):
+				self.erp_instance.remove_student_by_index()
+		printed_messages = stdout.getvalue()
 		self.assertIn(expected_exception, printed_messages)
 		self.assertEqual(len(self.erp_instance.students), 1)
 		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
-		self.held = None #removed 'sys.stdout = None' due to issues with pycharm
+
 
 	def test_remove_1_student_by_index_fails_type_error(self):
 		wrong_input = [5]

@@ -1,8 +1,8 @@
-from io import StringIO
+import set_test_path
 import unittest
 from unittest import mock
-import sys
-import set_test_path
+from io import StringIO
+from contextlib import redirect_stdout
 from app import ClassesManagementSystem as Erp
 
 class test_add_student(unittest.TestCase):
@@ -34,14 +34,13 @@ class test_add_student(unittest.TestCase):
         wrong_input = "João2"
         inputed_inputs = self.right_inputs_student_id_0[:]
         inputed_inputs.insert(0, wrong_input)  # inserting wrong input
-        expected_exception = "Invalid input. The name muss contain only letter or spaces."
-        self.held, sys.stdout = sys.stdout, StringIO()
-        with mock.patch('builtins.input', side_effect=inputed_inputs):
-            self.erp_instance.add_student()
+        expected_exception = "Invalid input. The forename muss contain only letters or spaces.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
         self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
-        printed_messages = sys.stdout.getvalue()
+        printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-        self.held = None #removed 'sys.stdout = None' line due to issues with PyCharm.
 
 
     def test_add_1_student_fails_type_error(self):
