@@ -14,6 +14,10 @@ class Validators():
             raise ValueError(f"The value '{inputedValue}' is not numeric")
 
     @staticmethod
+    def is_alpha_or_has_spaces(string_to_validate):
+        return True if string_to_validate.replace(" ", "").isalpha() else False
+
+    @staticmethod
     def validate_alpha_and_spaces_len25(string_to_validate):
         while not Validators().is_alpha_or_has_spaces(string_to_validate) or len(string_to_validate) > 25:
             while not Validators().is_alpha_or_has_spaces(string_to_validate):
@@ -61,16 +65,12 @@ class Validators():
         return student_surname_to_validate
 
     @staticmethod
-    def is_alpha_or_has_spaces(string_to_validate):
-        return True if string_to_validate.replace(" ", "").isalpha() else False
-
-    @staticmethod
     def validate_birthday(date_to_validate):
         while True:
             try:
-                validated_date = datetime.datetime.strptime(date_to_validate, '%d-%m-%Y')
-            except:
-                print("Invalid input. The birthday muss comply to the required format")
+                datetime.datetime.strptime(date_to_validate, '%d-%m-%Y')
+            except ValueError:
+                print("Invalid input. The birthdate muss comply to the required format")
                 date_to_validate = input("Enter the student's birthday (DD-MM-YYYY): ")
             else:
                 Validators().raise_type_error_if_not_string(date_to_validate)

@@ -30,11 +30,36 @@ class test_add_student(unittest.TestCase):
         self.assertEqual(self.erp_instance.students[1], self.right_inputs_student_id_1)
         self.assertEqual(self.erp_instance.students, [self.right_inputs_student_id_0, self.right_inputs_student_id_1])
 
-    def test_add_1_student_fails_numbers_in_string(self):
-        wrong_input = "João2"
+    def test_add_1_student_fails_forename_value_error(self):
+        wrong_forename_input = "João2"
         inputed_inputs = self.right_inputs_student_id_0[:]
-        inputed_inputs.insert(0, wrong_input)  # inserting wrong input
+        inputed_inputs.insert(0, wrong_forename_input)
         expected_exception = "Invalid input. The forename muss contain only letters or spaces.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+
+    def test_add_1_student_fails_surname_value_error(self):
+        wrong_surname_input = "da Silva2"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(1, wrong_surname_input)
+        expected_exception = "Invalid input. The surname muss contain only letters or spaces.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+    def test_add_1_student_fails_birthdate(self):
+        wrong_date_input = "24011978"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(2, wrong_date_input)  # inserting wrong input for birthdate
+        expected_exception = "Invalid input. The birthdate muss comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
