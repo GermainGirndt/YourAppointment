@@ -75,7 +75,7 @@ class Validators():
         return student_surname_to_validate
 
     @staticmethod
-    def validate_birthday(date_to_validate):
+    def validate_student_birthdate(date_to_validate):
         Validators().raise_type_error_if_not_string(date_to_validate)
         while True:
             try:

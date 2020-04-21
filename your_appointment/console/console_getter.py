@@ -16,8 +16,9 @@ class ConsoleGetter():
 
     @staticmethod
     def get_student_birthday():
-        student_birthday = input("Enter the student's birthday (DD-MM-YYYY): ")
-        return student_birthday
+        student_birthdate = input("Enter the student's birthday (DD-MM-YYYY): ")
+        validated_student_birthday = Validators().validate_student_birthdate(student_birthdate)
+        return validated_student_birthday
 
     @staticmethod
     def get_student_id_number():
