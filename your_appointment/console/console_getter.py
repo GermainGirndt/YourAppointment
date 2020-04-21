@@ -4,16 +4,16 @@ class ConsoleGetter():
 
     @staticmethod
     def get_student_forename():
-        student_forename = input("Enter the student's student_forename: ")
+        student_forename = input("Enter the student's forename: ")
         Validators().raise_type_error_if_not_string(student_forename)
-        validated_student_forename = Validators().validate_alpha_and_spaces_len25(student_forename)
+        validated_student_forename = Validators().validate_student_forename(student_forename)
         return validated_student_forename
 
     @staticmethod
     def get_student_surname():
-        student_surname = input("Enter the student's student_surname: ")
+        student_surname = input("Enter the student's surname: ")
         Validators().raise_type_error_if_not_string(student_surname)
-        validated_student_surname = Validators().validate_alpha_and_spaces_len25(student_surname)
+        validated_student_surname = Validators().validate_student_surname(student_surname)
         return validated_student_surname
 
     @staticmethod
