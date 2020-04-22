@@ -27,27 +27,27 @@ class ConsoleGetter():
         return validated_student_id_number
 
     @staticmethod
-    def get_student_adress_street_and_number():
-        student_adress_street_and_number = input("Enter the street and street number: ")
-        Validators().raise_type_error_if_not_string(student_adress_street_and_number)
-        return student_adress_street_and_number
+    def get_student_address_street_and_number():
+        student_address_street_and_number = input("Enter the student's street and street number: ")
+        validated_student_address_street_and_number = Validators().validate_student_address_street_and_number(student_address_street_and_number)
+        return validated_student_address_street_and_number
 
     @staticmethod
-    def get_student_adress_others():
-        student_adress_others = input("Enter other adress information (NA = Not applies): ")
-        Validators().raise_type_error_if_not_string(student_adress_others)
-        return student_adress_others
+    def get_student_address_others():
+        student_address_others = input("Enter other address information (NA = Not applies): ")
+        Validators().raise_type_error_if_not_string(student_address_others)
+        return student_address_others
 
     @staticmethod
-    def get_student_adress_city():
-        student_adress_city = input("Enter the student's city: ")
-        Validators().raise_type_error_if_not_string(student_adress_city)
-        validated_student_adress_city = Validators().validate_alpha_and_spaces_len25(student_adress_city)
-        return validated_student_adress_city
+    def get_student_address_city():
+        student_address_city = input("Enter the student's city: ")
+        Validators().raise_type_error_if_not_string(student_address_city)
+        validated_student_address_city = Validators().validate_alpha_and_spaces_len25(student_address_city)
+        return validated_student_address_city
 
     @staticmethod
-    def get_student_adress_state():
-        student_adress_state = input("Enter the student's state: ")
-        Validators().raise_type_error_if_not_string(student_adress_state)
-        validated_student_adress_state = Validators().validate_alpha_and_spaces_len25(student_adress_state)
-        return validated_student_adress_state
+    def get_student_address_state():
+        student_address_state = input("Enter the student's state: ")
+        Validators().raise_type_error_if_not_string(student_address_state)
+        validated_student_address_state = Validators().validate_alpha_and_spaces_len25(student_address_state)
+        return validated_student_address_state

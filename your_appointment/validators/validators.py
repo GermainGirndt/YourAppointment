@@ -18,7 +18,12 @@ class Validators():
         return True if string_to_validate.replace(" ", "").isalpha() else False
 
     @staticmethod
+    def is_alphanumeric_or_has_spaces_dots_commas_and_dashes(string_to_validate):
+        return True if string_to_validate.replace(" ", "").replace(",","").replace(".","").replace("-","").isalnum() else False
+
+    @staticmethod
     def validate_alpha_and_spaces_len25(string_to_validate):
+        Validators().raise_type_error_if_not_string(string_to_validate)
         checks = 0
         while checks < 2:
             while not Validators().is_alpha_or_has_spaces(string_to_validate):
@@ -26,13 +31,14 @@ class Validators():
                 print("Invalid input. The name muss contain only letter or spaces.")
                 string_to_validate = input("Enter the student's name: ")
             checks += 1
-            while len(string_to_validate) > 20:
+            while len(string_to_validate) > 25:
                 checks = 0
                 print("Invalid input. The name may not be longer than 25 characters.")
                 string_to_validate = input("Enter the student's name: ")
             checks += 1
         Validators().raise_type_error_if_not_string(string_to_validate)
         return string_to_validate
+
 
     @staticmethod
     def validate_student_forename(student_forename_to_validate):
@@ -105,3 +111,21 @@ class Validators():
                 Validators().raise_type_error_if_not_string(id_number_to_validate)
             checks += 1
         return id_number_to_validate
+
+    @staticmethod
+    def validate_student_address_street_and_number(address_street_and_number_to_validate):
+        Validators().raise_type_error_if_not_string(address_street_and_number_to_validate)
+        checks = 0
+        while checks < 2:
+            while not Validators().is_alphanumeric_or_has_spaces_dots_commas_and_dashes(address_street_and_number_to_validate):
+                checks = 0
+                print("Invalid input. The address may not contain special caracteres.")
+                address_street_and_number_to_validate = input("Enter the student's street and number: ")
+            checks += 1
+            while len(address_street_and_number_to_validate) > 25:
+                checks = 0
+                print("Invalid input. The address may not be longer than 25 characters.")
+                address_street_and_number_to_validate = input("Enter the student's street and number: ")
+            checks += 1
+        Validators().raise_type_error_if_not_string(address_street_and_number_to_validate)
+        return address_street_and_number_to_validate

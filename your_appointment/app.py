@@ -13,12 +13,12 @@ class ClassesManagementSystem():
 		student_surname = ConsoleGetter().get_student_surname()
 		student_birthday = ConsoleGetter().get_student_birthday()
 		student_id_number = ConsoleGetter().get_student_id_number()
-		student_adress_street_and_number = ConsoleGetter().get_student_adress_street_and_number()
-		student_adress_others = ConsoleGetter().get_student_adress_others()
-		student_adress_city = ConsoleGetter().get_student_adress_city()
-		student_adress_state = ConsoleGetter().get_student_adress_state()
+		student_address_street_and_number = ConsoleGetter().get_student_address_street_and_number()
+		student_address_others = ConsoleGetter().get_student_address_others()
+		student_address_city = ConsoleGetter().get_student_address_city()
+		student_address_state = ConsoleGetter().get_student_address_state()
 		
-		student_register = [student_forename, student_surname, student_birthday, student_id_number, student_adress_street_and_number, student_adress_others, student_adress_city, student_adress_state]
+		student_register = [student_forename, student_surname, student_birthday, student_id_number, student_address_street_and_number, student_address_others, student_address_city, student_address_state]
 
 		self.students.append(student_register)
 	
