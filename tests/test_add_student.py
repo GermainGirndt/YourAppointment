@@ -56,9 +56,9 @@ class test_add_student(unittest.TestCase):
         self.assertIn(expected_exception, printed_messages)
 
     def test_add_1_student_fails_birthdate(self):
-        wrong_date_input = "24011978"
+        wrong_birthdate_input = "24011978"
         inputed_inputs = self.right_inputs_student_id_0[:]
-        inputed_inputs.insert(2, wrong_date_input)  # inserting wrong input for birthdate
+        inputed_inputs.insert(2, wrong_birthdate_input)
         expected_exception = "Invalid input. The birthdate muss comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
@@ -69,34 +69,36 @@ class test_add_student(unittest.TestCase):
 
 
     def test_add_1_student_fails_type_error(self):
-        wrong_input = 2
+        wrong_student_name_input = 2
         inputed_inputs = self.right_inputs_student_id_0[:]
-        inputed_inputs.insert(0, wrong_input)  # inserting wrong input
-        with mock.patch('builtins.input', side_effect=inputed_inputs):
-            with self.assertRaises(TypeError):
+        inputed_inputs.insert(0, wrong_student_name_input)
+        with self.assertRaises(TypeError):
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
 
     def test_add_1_student_fails_type_error2(self):
-        wrong_input = 2
-        inputed_inputs = ["João", "da Silva", "23-05-1978", wrong_input, "297.586.890-10", "Rua Bom Sucesso, 487",
-                          "Casa", "São Paulo", "SP"]
+        wrong_student_id_input = 2
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(3, wrong_student_id_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
 
     def test_add_1_student_fails_type_error3(self):
-        wrong_input = True
-        inputed_inputs = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", wrong_input,
-                          "Casa", "São Paulo", "SP"]
-        with mock.patch('builtins.input', side_effect=inputed_inputs):
-            with self.assertRaises(TypeError):
+        wrong_adress_other_input = True
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(6, wrong_adress_other_input)
+        with self.assertRaises(TypeError):
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
 
+
     def test_add_1_student_fails_type_error4(self):
-        wrong_input = 3
-        inputed_inputs = ["João", "da Silva", "23-05-1978", "297.586.890-10", wrong_input, "Casa", "São Paulo", "SP"]
-        with mock.patch('builtins.input', side_effect=inputed_inputs):
-            with self.assertRaises(TypeError):
+        wrong_adress_street_and_number_input = 3
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(4, wrong_adress_street_and_number_input)
+        with self.assertRaises(TypeError):
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
 
     def tearDown(self):
