@@ -90,11 +90,11 @@ class Validators():
     @staticmethod
     def validate_id_number(id_number_to_validate):
         Validators().raise_type_error_if_not_string(id_number_to_validate)
-        checks = 2
+        checks = 0
         while checks < 2:
             while len(id_number_to_validate.replace("-","").replace(".","")) != 11:
                 checks = 0
-                print(f"Invalid input. The id number muss have 11 digits and should have comply to the required format")
+                print(f"Invalid input. The student id muss have 11 digits and comply to the required format")
                 id_number_to_validate = input("Enter the student's birthname (DD-MM-YYYY): ")
                 Validators().raise_type_error_if_not_string(id_number_to_validate)
             checks += 1

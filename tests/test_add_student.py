@@ -68,6 +68,31 @@ class test_add_student(unittest.TestCase):
         self.assertIn(expected_exception, printed_messages)
 
 
+    def test_add_1_student_fails_student_id(self):
+        wrong_student_id_input = "24011978"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(3, wrong_student_id_input)
+        expected_exception = "Invalid input. The student id muss have 11 digits and comply to the required format\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+
+    def test_add_1_student_fails_student_id2(self):
+        wrong_student_id_input = "1234567891!"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(3, wrong_student_id_input)
+        expected_exception = "Invalid input. The id number may only have numbers, points and dashes\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
     def test_add_1_student_fails_type_error(self):
         wrong_student_name_input = 2
         inputed_inputs = self.right_inputs_student_id_0[:]
