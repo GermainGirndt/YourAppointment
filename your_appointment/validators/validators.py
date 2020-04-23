@@ -148,3 +148,24 @@ class Validators():
             checks += 1
         Validators().raise_type_error_if_not_string(address_others_to_validate)
         return address_others_to_validate
+
+
+    @staticmethod
+    def validate_student_adress_city(student_adress_city_to_validate):
+        Validators().raise_type_error_if_not_string(student_adress_city_to_validate)
+        checks = 0
+        while checks < 2:
+            while not Validators().is_alpha_or_has_spaces(student_adress_city_to_validate):
+                checks = 0
+                print("Invalid input. The city name may only contain letter or spaces.")
+                student_adress_city_to_validate = input("Enter the student's city name: ")
+                Validators().raise_type_error_if_not_string(student_adress_city_to_validate)
+            checks += 1
+            while len(student_adress_city_to_validate) > 25:
+                checks = 0
+                print("Invalid input. The city name may not be longer than 25 characters.")
+                student_adress_city_to_validate = input("Enter the student's forename: ")
+                Validators().raise_type_error_if_not_string(student_adress_city_to_validate)
+            checks += 1
+        Validators().raise_type_error_if_not_string(student_adress_city_to_validate)
+        return student_adress_city_to_validate

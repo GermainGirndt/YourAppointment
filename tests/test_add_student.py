@@ -142,6 +142,32 @@ class test_add_student(unittest.TestCase):
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
+
+    def test_add_1_student_fails_address_city(self):
+        wrong_address_city_input = "New York 101"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(6, wrong_address_city_input)
+        expected_exception = "Invalid input. The city name may only contain letter or spaces.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+    def test_add_1_student_fails_address_city2(self):
+        wrong_address_city_input = "testing too long city lalalalalalala"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(6, wrong_address_city_input)
+        expected_exception = "Invalid input. The city name may not be longer than 25 characters.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+
     def test_add_1_student_fails_type_error(self):
         wrong_student_name_input = 2
         inputed_inputs = self.right_inputs_student_id_0[:]

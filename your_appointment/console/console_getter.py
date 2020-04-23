@@ -43,7 +43,7 @@ class ConsoleGetter():
     def get_student_address_city():
         student_address_city = input("Enter the student's city: ")
         Validators().raise_type_error_if_not_string(student_address_city)
-        validated_student_address_city = Validators().validate_alpha_and_spaces_len25(student_address_city)
+        validated_student_address_city = Validators().validate_student_adress_city(student_address_city)
         return validated_student_address_city
 
     @staticmethod
