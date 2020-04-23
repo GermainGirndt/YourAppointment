@@ -106,6 +106,17 @@ class test_add_student(unittest.TestCase):
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
+    def test_add_1_student_fails_address_street_and_number2(self):
+        wrong_address_street_and_number_input = "testing too long adress lalalalala"
+        inputed_inputs = self.right_inputs_student_id_0[:]
+        inputed_inputs.insert(4, wrong_address_street_and_number_input)
+        expected_exception = "Invalid input. The address may not be longer than 25 characters.\n"
+        with redirect_stdout(StringIO()) as stdout:
+            with mock.patch('builtins.input', side_effect=inputed_inputs):
+                self.erp_instance.add_student()
+        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
 
     def test_add_1_student_fails_type_error(self):
         wrong_student_name_input = 2
