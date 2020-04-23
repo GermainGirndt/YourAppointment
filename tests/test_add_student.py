@@ -34,7 +34,7 @@ class test_add_student(unittest.TestCase):
         wrong_forename_input = "João2"
         inputed_inputs = self.right_inputs_student_id_0[:]
         inputed_inputs.insert(0, wrong_forename_input)
-        expected_exception = "Invalid input. The forename muss contain only letters or spaces.\n"
+        expected_exception = "Invalid input. The forename may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()
@@ -47,7 +47,7 @@ class test_add_student(unittest.TestCase):
         wrong_surname_input = "da Silva2"
         inputed_inputs = self.right_inputs_student_id_0[:]
         inputed_inputs.insert(1, wrong_surname_input)
-        expected_exception = "Invalid input. The surname muss contain only letters or spaces.\n"
+        expected_exception = "Invalid input. The surname may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()

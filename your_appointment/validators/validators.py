@@ -28,7 +28,7 @@ class Validators():
         while checks < 2:
             while not Validators().is_alpha_or_has_spaces(string_to_validate):
                 checks = 0
-                print("Invalid input. The name muss contain only letter or spaces.")
+                print("Invalid input. The name may only contain letter or spaces.")
                 string_to_validate = input("Enter the student's name: ")
             checks += 1
             while len(string_to_validate) > 25:
@@ -47,7 +47,7 @@ class Validators():
         while checks < 2:
             while not Validators().is_alpha_or_has_spaces(student_forename_to_validate):
                 checks = 0
-                print("Invalid input. The forename muss contain only letters or spaces.")
+                print("Invalid input. The forename may only contain letter or spaces.")
                 student_forename_to_validate = input("Enter the student's forename: ")
                 Validators().raise_type_error_if_not_string(student_forename_to_validate)
             checks += 1
@@ -68,7 +68,7 @@ class Validators():
         while checks < 2:
             while not Validators().is_alpha_or_has_spaces(student_surname_to_validate):
                 checks = 0
-                print("Invalid input. The surname muss contain only letters or spaces.")
+                print("Invalid input. The surname may only contain letter or spaces.")
                 student_surname_to_validate = input("Enter the student's surname: ")
                 Validators().raise_type_error_if_not_string(student_surname_to_validate)
             checks += 1
