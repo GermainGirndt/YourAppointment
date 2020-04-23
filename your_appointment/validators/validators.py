@@ -129,3 +129,22 @@ class Validators():
             checks += 1
         Validators().raise_type_error_if_not_string(address_street_and_number_to_validate)
         return address_street_and_number_to_validate
+
+
+    @staticmethod
+    def validate_student_address_others(address_others_to_validate):
+        Validators().raise_type_error_if_not_string(address_others_to_validate)
+        checks = 0
+        while checks < 2:
+            while not Validators().is_alphanumeric_or_has_spaces_dots_commas_and_dashes(address_others_to_validate):
+                checks = 0
+                print("Invalid input. The address may not contain special caracters.")
+                address_others_to_validate = input("Enter the student's street and number: ")
+            checks += 1
+            while len(address_others_to_validate) > 25:
+                checks = 0
+                print("Invalid input. The address may not be longer than 25 characters.")
+                address_others_to_validate = input("Enter the student's street and number: ")
+            checks += 1
+        Validators().raise_type_error_if_not_string(address_others_to_validate)
+        return address_others_to_validate

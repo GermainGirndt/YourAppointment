@@ -35,8 +35,9 @@ class ConsoleGetter():
     @staticmethod
     def get_student_address_others():
         student_address_others = input("Enter other address information (NA = Not applies): ")
-        Validators().raise_type_error_if_not_string(student_address_others)
-        return student_address_others
+        validated_student_address_others = Validators().validate_student_address_others(
+            student_address_others)
+        return validated_student_address_others
 
     @staticmethod
     def get_student_address_city():
