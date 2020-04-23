@@ -3,72 +3,84 @@ import unittest
 from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
-from app import ClassesManagementSystem as Erp
-
+from app import AppointmentsManagementSystem as Ams
+from datetime import datetime
 
 class test_remove_student_by_index(unittest.TestCase):
 
 	def setUp(self):
-		self.erp_instance = Erp()
-		self.right_inputs_student_id_0 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa", "São Paulo", "SP"]
-		self.right_inputs_student_id_1 = ["Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201", "Rio de Janeiro", "RJ"]
+		student_register_day = datetime.now().strftime("%Y-%m-%d")
+		student_register_time = datetime.now().strftime("%H:%M:%S")
+
+		self.ams_instance = Ams()
+		self.right_inputs_student_id_0 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa", "São Paulo", "SP", student_register_day, student_register_time, "Active"]
+		self.right_inputs_student_id_1 = ["Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201", "Rio de Janeiro", "RJ", student_register_day, student_register_time, "Active"]
+
 		with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_0):
-			self.erp_instance.add_student()
+			self.ams_instance.add_student_to_registry()
 		with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_1):
-			self.erp_instance.add_student()
-		self.assertEqual(len(self.erp_instance.students), 2) #Checks
-		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
-		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
+			self.ams_instance.add_student_to_registry()
+		self.assertEqual(len(self.ams_instance.students_register), 2) #Checks
+		self.assertIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
+		self.assertIn(self.right_inputs_student_id_1, self.ams_instance.students_register)
 
 	def test_remove_1_student_by_index_passes(self):
 		rightId = "0"
 		with mock.patch('builtins.input', side_effect=rightId):
-			self.erp_instance.remove_student_by_index()
-		self.assertEqual(len(self.erp_instance.students),1)
-		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
+			self.ams_instance.remove_student_by_index()
+		self.assertEqual(len(self.ams_instance.students_register),1)
+		self.assertNotIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
 
 	def test_remove_1_student_by_index_passes2(self):
 		rightId = ["1"]
 		with mock.patch('builtins.input', side_effect=rightId):
-			self.erp_instance.remove_student_by_index()
-		self.assertEqual(len(self.erp_instance.students), 1)
-		self.assertNotIn(self.right_inputs_student_id_1, self.erp_instance.students)
+			self.ams_instance.remove_student_by_index()
+		self.assertEqual(len(self.ams_instance.students_register), 1)
+		self.assertNotIn(self.right_inputs_student_id_1, self.ams_instance.students_register)
 
 
 	def test_remove_1_student_by_index_fails_inexisting_index(self):
 		wrong_input_id = "200"
 		right_input_id = "0"
 		inputed_inputs = [wrong_input_id, right_input_id]
-		expected_exception = f"The inputed value is out of range. Please input a index from 0 to {len(self.erp_instance.students)}"
+		expected_exception = f"The inputed value is out of range. Please input a index from 0 to {len(self.ams_instance.students_register)}"
 		with redirect_stdout(StringIO()) as stdout:
 			with mock.patch('builtins.input', side_effect=inputed_inputs):
-				self.erp_instance.remove_student_by_index()
+				self.ams_instance.remove_student_by_index()
 		printed_messages = stdout.getvalue()
 		self.assertIn(expected_exception, printed_messages)
-		self.assertEqual(len(self.erp_instance.students), 1)
-		self.assertNotIn(self.right_inputs_student_id_0, self.erp_instance.students)
+		self.assertEqual(len(self.ams_instance.students_register), 1)
+		self.assertNotIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
 
 
 	def test_remove_1_student_by_index_fails_type_error(self):
 		wrong_input = [5]
 		with mock.patch('builtins.input', side_effect=wrong_input):
 			with self.assertRaises(TypeError):
-				self.erp_instance.remove_student_by_index()
-		self.assertEqual(len(self.erp_instance.students), 2)
-		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
-		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
+				self.ams_instance.remove_student_by_index()
+		self.assertEqual(len(self.ams_instance.students_register), 2)
+		self.assertIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
+		self.assertIn(self.right_inputs_student_id_1, self.ams_instance.students_register)
 
 	def test_remove_1_student_by_index_fails_value_error(self):
 		wrong_input = ["lala"]
 		with mock.patch('builtins.input', side_effect=wrong_input):
 			with self.assertRaises(ValueError):
-				self.erp_instance.remove_student_by_index()
-		self.assertEqual(len(self.erp_instance.students), 2)
-		self.assertIn(self.right_inputs_student_id_0, self.erp_instance.students)
-		self.assertIn(self.right_inputs_student_id_1, self.erp_instance.students)
+				self.ams_instance.remove_student_by_index()
+		self.assertEqual(len(self.ams_instance.students_register), 2)
+		self.assertIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
+		self.assertIn(self.right_inputs_student_id_1, self.ams_instance.students_register)
+
+	def test_remove_2_students_by_index_passes(self):
+		rightId = ["0","1"]
+		with mock.patch('builtins.input', side_effect=rightId):
+			self.ams_instance.remove_student_by_index()
+		self.assertEqual(len(self.ams_instance.students_register),1)
+		self.assertNotIn(self.right_inputs_student_id_0, self.ams_instance.students_register)
+
 
 	def tearDown(self):
-		self.erp_instance = None
+		self.ams_instance = None
 
 if __name__ == "__main__":
 	unittest.main()

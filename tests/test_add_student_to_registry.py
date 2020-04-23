@@ -3,32 +3,37 @@ import unittest
 from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
-from app import ClassesManagementSystem as Erp
+from datetime import datetime
+from app import AppointmentsManagementSystem as Ams
 
-class test_add_student(unittest.TestCase):
+class test_add_student_to_registry(unittest.TestCase):
+
+    student_register_day = datetime.now().strftime("%Y-%m-%d")
+    student_register_time = datetime.now().strftime("%H:%M:%S")
+
     right_inputs_student_id_0 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa",
-                                 "São Paulo", "SP"]
+                                 "São Paulo", "SP", student_register_day, student_register_time, "Active"]
     right_inputs_student_id_1 = ["Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201",
-                                 "Rio de Janeiro", "RJ"]
+                                 "Rio de Janeiro", "RJ", student_register_day, student_register_time, "Active"]
 
     def setUp(self):
-        self.erp_instance = Erp()
-        self.assertEqual(len(self.erp_instance.students), 0)
+        self.ams_instance = Ams()
+        self.assertEqual(len(self.ams_instance.students_register), 0)
 
     def test_add_1_student_passes(self):
         with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_0):
-            self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[0], self.right_inputs_student_id_0)
+            self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[0], self.right_inputs_student_id_0)
 
-    def test_add_2_students_passes(self):
+    def test_add_2_students_register_passes(self):
         with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_0):
-            self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[0], self.right_inputs_student_id_0)
-        self.assertEqual(len(self.erp_instance.students), 1)
+            self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[0], self.right_inputs_student_id_0)
+        self.assertEqual(len(self.ams_instance.students_register), 1)
         with mock.patch('builtins.input', side_effect=self.right_inputs_student_id_1):
-            self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[1], self.right_inputs_student_id_1)
-        self.assertEqual(self.erp_instance.students, [self.right_inputs_student_id_0, self.right_inputs_student_id_1])
+            self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[1], self.right_inputs_student_id_1)
+        self.assertEqual(self.ams_instance.students_register, [self.right_inputs_student_id_0, self.right_inputs_student_id_1])
 
     def test_add_1_student_fails_forename_value_error(self):
         wrong_forename_input = "João2"
@@ -37,8 +42,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The forename may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -50,8 +55,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The surname may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -62,8 +67,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The birthdate muss comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -75,8 +80,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The student id muss have 11 digits and comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -88,8 +93,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The id number may only have numbers, points and dashes\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -101,8 +106,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The address may not contain special caracters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -113,8 +118,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The address may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -125,8 +130,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The address may not contain special caracters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -137,8 +142,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The address may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -150,8 +155,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The city name may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -162,8 +167,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The city name may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -174,8 +179,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The state name may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -186,8 +191,8 @@ class test_add_student(unittest.TestCase):
         expected_exception = "Invalid input. The state name may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
-        self.assertEqual(self.erp_instance.students[-1], self.right_inputs_student_id_0)
+                self.ams_instance.add_student_to_registry()
+        self.assertEqual(self.ams_instance.students_register[-1], self.right_inputs_student_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -197,7 +202,7 @@ class test_add_student(unittest.TestCase):
         inputed_inputs.insert(0, wrong_student_name_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
+                self.ams_instance.add_student_to_registry()
 
     def test_add_1_student_fails_type_error2(self):
         wrong_student_id_input = 2
@@ -205,7 +210,7 @@ class test_add_student(unittest.TestCase):
         inputed_inputs.insert(3, wrong_student_id_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
+                self.ams_instance.add_student_to_registry()
 
     def test_add_1_student_fails_type_error3(self):
         wrong_address_other_input = True
@@ -213,7 +218,7 @@ class test_add_student(unittest.TestCase):
         inputed_inputs.insert(6, wrong_address_other_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
+                self.ams_instance.add_student_to_registry()
 
 
     def test_add_1_student_fails_type_error4(self):
@@ -222,10 +227,10 @@ class test_add_student(unittest.TestCase):
         inputed_inputs.insert(4, wrong_address_street_and_number_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.erp_instance.add_student()
+                self.ams_instance.add_student_to_registry()
 
     def tearDown(self):
-        self.erp_instance = None
+        self.ams_instance = None
 
 if __name__ == "__main__":
     unittest.main()
