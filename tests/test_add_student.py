@@ -98,7 +98,7 @@ class test_add_student(unittest.TestCase):
         wrong_address_street_and_number_input = "XX Street !"
         inputed_inputs = self.right_inputs_student_id_0[:]
         inputed_inputs.insert(4, wrong_address_street_and_number_input)
-        expected_exception = "Invalid input. The address may not contain special caracteres.\n"
+        expected_exception = "Invalid input. The address may not contain special caracters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.erp_instance.add_student()

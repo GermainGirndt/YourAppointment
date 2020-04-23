@@ -119,7 +119,7 @@ class Validators():
         while checks < 2:
             while not Validators().is_alphanumeric_or_has_spaces_dots_commas_and_dashes(address_street_and_number_to_validate):
                 checks = 0
-                print("Invalid input. The address may not contain special caracteres.")
+                print("Invalid input. The address may not contain special caracters.")
                 address_street_and_number_to_validate = input("Enter the student's street and number: ")
             checks += 1
             while len(address_street_and_number_to_validate) > 25:
