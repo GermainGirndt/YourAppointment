@@ -1,12 +1,10 @@
 # YourAppointment
-YourAppointment is an ERP for Appointment Management.
+YourAppointment is an simple and practical framework for Appointment Management.
    
    
    
 ## Goals
-YourAppointment's goals are:
-- to provide professionals with simple and practical framework for Appointment Management;
-- accelerate the **booking of appointments and services**, by letting the customers pick out of a time schedule the appointment which best suits his needs - instead of contacting the service provider.
+YourAppointment's goal is to accelerate the **booking of appointments and services**, by letting the customers pick out of a time schedule the appointment which best suits his needs - instead of contacting the service provider.
      
   
      
