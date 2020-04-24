@@ -1,5 +1,5 @@
 # YourAppointment
-YourAppointment is an simple and practical framework for Appointment Management.
+YourAppointment is a simple and practical App for Appointment Management.
    
    
    
