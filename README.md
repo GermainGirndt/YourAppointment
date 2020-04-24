@@ -36,4 +36,4 @@ Last update: 2020/04/20
    
        
 ## Credits
-Third parties code are properly referenced in the file ''References.txt''.
+Third parties code are properly referenced in ''References.txt''.
