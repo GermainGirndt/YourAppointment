@@ -1,11 +1,17 @@
 # YourAppointment
-ERP for Classes Management
-
-
+YourAppointment is an ERP for Appointment Management.
+   
+   
+   
+## Goals
+YourAppointment's goals are:
+- to provide professionals with simple and practical framework for Appointment Management;
+- accelerate the **booking of appointments and services**, by letting the customers pick out of a time schedule the appointment which best suits his needs - instead of contacting the service provider.
+     
+  
+     
 ## Project's Structure
-<p>Last update: 2020/04/20</p>
-
-
+Last update: 2020/04/20  
 .  
 ├── mostrar.txt  
 ├── References.txt  
@@ -28,3 +34,8 @@ ERP for Classes Management
         └── validators.py  
 
 4 directories, 15 files  
+
+   
+       
+## Credits
+Third parties code are properly referenced in the file ''References.txt''.
