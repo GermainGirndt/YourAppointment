@@ -9,7 +9,7 @@ from app import AppointmentsManagementSystem as Ams
 class test_add_customer_to_registry(unittest.TestCase):
 
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
-    customer_register_time = datetime.now().strftime("%H:%M:%S")
+    customer_register_time = datetime.now().strftime("%H:%M")
 
     right_inputs_customer_id_0 = ["João", "da Silva", "23-05-1978", "297.586.890-10", "Rua Bom Sucesso, 487", "Casa",
                                  "São Paulo", "SP", customer_register_day, customer_register_time, "Active"]

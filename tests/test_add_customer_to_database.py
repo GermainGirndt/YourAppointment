@@ -10,7 +10,7 @@ from unittest import mock
 class test_add_customer_to_database(unittest.TestCase):
 
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
-    customer_register_time = datetime.now().strftime("%H:%M:%S")
+    customer_register_time = datetime.now().strftime("%H:%M")
 
     RIGHT_INPUTS_CUSTOMER_ID_0 = ("João", "da Silva", "23-05-1978", "297.586.890-10",
                                   "Rua Bom Sucesso, 487", "Casa", "São Paulo",

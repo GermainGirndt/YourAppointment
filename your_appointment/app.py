@@ -23,7 +23,7 @@ class AppointmentsManagementSystem():
 
 	def get_register_data(self):
 		customer_register_day = datetime.now().strftime("%Y-%m-%d")
-		customer_register_time = datetime.now().strftime("%H:%M:%S")
+		customer_register_time = datetime.now().strftime("%H:%M")
 		customer_register_status = "Active"
 		register_data = [customer_register_day, customer_register_time, customer_register_status]
 		return register_data
@@ -80,15 +80,15 @@ class customer():
 		self.customer_birthday = ConsoleGetter().get_customer_birthday()
 		self.customer_id_number = ConsoleGetter().get_customer_id_number()
 		self.customer_address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
-		self.customer_address_other = ConsoleGetter().get_customer_address_others()
+		self.customer_address_other = ConsoleGetter().get_customer_address_other()
 		self.customer_address_city = ConsoleGetter().get_customer_address_city()
 		self.customer_address_state = ConsoleGetter().get_customer_address_state()
 		self.customer_register_date = datetime.now().strftime("%Y-%m-%d")
-		self.customer_register_time = datetime.now().strftime("%H:%M:%S")
+		self.customer_register_time = datetime.now().strftime("%H:%M")
 		self.customer_status = "Active"
 
 	def return_customer_data(self):
-		customer_register = [self.customer_forename, self.customer_surname, self.customer_birthday, self.customer_id_number, self.customer_address_street_and_number, self.customer_address_others, self.customer_address_city, self.customer_address_state]
+		customer_register = [self.customer_forename, self.customer_surname, self.customer_birthday, self.customer_id_number, self.customer_address_street_and_number, self.customer_address_other, self.customer_address_city, self.customer_address_state]
 		return customer_register
 
 

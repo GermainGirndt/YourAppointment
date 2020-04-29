@@ -33,7 +33,7 @@ class ConsoleGetter():
         return validated_customer_address_street_and_number
 
     @staticmethod
-    def get_customer_address_others():
+    def get_customer_address_other():
         customer_address_others = input("Enter other address information (NA = Not applies): ")
         validated_customer_address_others = Validators().validate_customer_address_others(
             customer_address_others)
