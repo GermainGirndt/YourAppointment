@@ -3,50 +3,50 @@ from validators.validators import Validators
 class ConsoleGetter():
 
     @staticmethod
-    def get_student_forename():
-        student_forename = input("Enter the student's forename: ")
-        validated_student_forename = Validators().validate_student_forename(student_forename)
-        return validated_student_forename
+    def get_customer_forename():
+        customer_forename = input("Enter the customer's forename: ")
+        validated_customer_forename = Validators().validate_customer_forename(customer_forename)
+        return validated_customer_forename
 
     @staticmethod
-    def get_student_surname():
-        student_surname = input("Enter the student's surname: ")
-        validated_student_surname = Validators().validate_student_surname(student_surname)
-        return validated_student_surname
+    def get_customer_surname():
+        customer_surname = input("Enter the customer's surname: ")
+        validated_customer_surname = Validators().validate_customer_surname(customer_surname)
+        return validated_customer_surname
 
     @staticmethod
-    def get_student_birthday():
-        student_birthdate = input("Enter the student's birthday (DD-MM-YYYY): ")
-        validated_student_birthday = Validators().validate_student_birthdate(student_birthdate)
-        return validated_student_birthday
+    def get_customer_birthday():
+        customer_birthdate = input("Enter the customer's birthday (DD-MM-YYYY): ")
+        validated_customer_birthday = Validators().validate_customer_birthdate(customer_birthdate)
+        return validated_customer_birthday
 
     @staticmethod
-    def get_student_id_number():
-        student_id_number = input("Enter the student's ID number: ")
-        validated_student_id_number = Validators().validate_id_number(student_id_number)
-        return validated_student_id_number
+    def get_customer_id_number():
+        customer_id_number = input("Enter the customer's ID number: ")
+        validated_customer_id_number = Validators().validate_id_number(customer_id_number)
+        return validated_customer_id_number
 
     @staticmethod
-    def get_student_address_street_and_number():
-        student_address_street_and_number = input("Enter the student's street and street number: ")
-        validated_student_address_street_and_number = Validators().validate_student_address_street_and_number(student_address_street_and_number)
-        return validated_student_address_street_and_number
+    def get_customer_address_street_and_number():
+        customer_address_street_and_number = input("Enter the customer's street and street number: ")
+        validated_customer_address_street_and_number = Validators().validate_customer_address_street_and_number(customer_address_street_and_number)
+        return validated_customer_address_street_and_number
 
     @staticmethod
-    def get_student_address_others():
-        student_address_others = input("Enter other address information (NA = Not applies): ")
-        validated_student_address_others = Validators().validate_student_address_others(
-            student_address_others)
-        return validated_student_address_others
+    def get_customer_address_others():
+        customer_address_others = input("Enter other address information (NA = Not applies): ")
+        validated_customer_address_others = Validators().validate_customer_address_others(
+            customer_address_others)
+        return validated_customer_address_others
 
     @staticmethod
-    def get_student_address_city():
-        student_address_city = input("Enter the student's city: ")
-        validated_student_address_city = Validators().validate_student_adress_city(student_address_city)
-        return validated_student_address_city
+    def get_customer_address_city():
+        customer_address_city = input("Enter the customer's city: ")
+        validated_customer_address_city = Validators().validate_customer_adress_city(customer_address_city)
+        return validated_customer_address_city
 
     @staticmethod
-    def get_student_address_state():
-        student_address_state = input("Enter the student's state: ")
-        validated_student_address_state = Validators().validate_student_adress_state(student_address_state)
-        return validated_student_address_state
+    def get_customer_address_state():
+        customer_address_state = input("Enter the customer's state: ")
+        validated_customer_address_state = Validators().validate_customer_adress_state(customer_address_state)
+        return validated_customer_address_state
