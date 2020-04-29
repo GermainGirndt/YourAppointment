@@ -60,12 +60,12 @@ class AppointmentsManagementSystem():
              status text
              )""")
 		c.execute("INSERT INTO customers VALUES (:fn, :sn, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)",
-				  {'fn': new_customer.customer_forename, 'sn': new_customer.customer_surname,
-				   'bd':new_customer.customer_birthday, 'in': new_customer.customer_id_number,
-				   'asn': new_customer.customer_address_street_and_number,
-				   'ao': new_customer.customer_address_other, 'ac': new_customer.customer_address_city,
-				   'as': new_customer.customer_address_state, 'rd': new_customer.customer_register_date,
-				   'rt': new_customer.customer_register_time, 'st': new_customer.customer_status})
+				  {'fn': new_customer.forename, 'sn': new_customer.surname,
+				   'bd':new_customer.birthday, 'in': new_customer.id_number,
+				   'asn': new_customer.address_street_and_number,
+				   'ao': new_customer.address_other, 'ac': new_customer.address_city,
+				   'as': new_customer.address_state, 'rd': new_customer.register_date,
+				   'rt': new_customer.register_time, 'st': new_customer.status})
 		conn.commit()
 		conn.close()
 
@@ -75,20 +75,20 @@ class AppointmentsManagementSystem():
 class customer():
 
 	def __init__(self):
-		self.customer_forename = ConsoleGetter().get_customer_forename()
-		self.customer_surname = ConsoleGetter().get_customer_surname()
-		self.customer_birthday = ConsoleGetter().get_customer_birthday()
-		self.customer_id_number = ConsoleGetter().get_customer_id_number()
-		self.customer_address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
-		self.customer_address_other = ConsoleGetter().get_customer_address_other()
-		self.customer_address_city = ConsoleGetter().get_customer_address_city()
-		self.customer_address_state = ConsoleGetter().get_customer_address_state()
-		self.customer_register_date = datetime.now().strftime("%Y-%m-%d")
-		self.customer_register_time = datetime.now().strftime("%H:%M")
-		self.customer_status = "Active"
+		self.forename = ConsoleGetter().get_customer_forename()
+		self.surname = ConsoleGetter().get_customer_surname()
+		self.birthday = ConsoleGetter().get_customer_birthday()
+		self.id_number = ConsoleGetter().get_customer_id_number()
+		self.address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
+		self.address_other = ConsoleGetter().get_customer_address_other()
+		self.address_city = ConsoleGetter().get_customer_address_city()
+		self.address_state = ConsoleGetter().get_customer_address_state()
+		self.register_date = datetime.now().strftime("%Y-%m-%d")
+		self.register_time = datetime.now().strftime("%H:%M")
+		self.status = "Active"
 
 	def return_customer_data(self):
-		customer_register = [self.customer_forename, self.customer_surname, self.customer_birthday, self.customer_id_number, self.customer_address_street_and_number, self.customer_address_other, self.customer_address_city, self.customer_address_state]
+		customer_register = [self.forename, self.surname, self.birthday, self.id_number, self.address_street_and_number, self.address_other, self.address_city, self.address_state]
 		return customer_register
 
 
