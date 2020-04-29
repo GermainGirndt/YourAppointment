@@ -111,6 +111,7 @@ ipch/
 *.VC.db
 *.VC.VC.opendb
 
+
 # Visual Studio profiler
 *.psess
 *.vsp
@@ -313,6 +314,9 @@ paket-files/
 #Python Drafts
 draft.py
 *draft*.py
+
+# Test Databases
+*.db
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
