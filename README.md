@@ -9,8 +9,9 @@ YourAppointment's goal is to accelerate the **booking of appointments and servic
   
      
 ## Project's Structure
-Last update: 2020/04/29  
-.
+Last update: 2020/04/29    
+  
+.  
 ├── LICENSE.txt  
 ├── README.md  
 ├── References.txt  
