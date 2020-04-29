@@ -220,6 +220,7 @@ _pkginfo.txt
 *.appxbundle
 *.appxupload
 
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
@@ -308,6 +309,10 @@ paket-files/
 
 # CodeRush personal settings
 .cr/personal
+
+#Python Drafts
+draft.py
+*draft*.py
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
