@@ -50,7 +50,7 @@ class test_remove_customer_by_index(unittest.TestCase):
 		wrong_input_id = "200"
 		right_input_id = "0"
 		inputed_inputs = [wrong_input_id, right_input_id]
-		expected_exception = f"The inputed value is out of range." \
+		expected_exception = f"The inputed value is out of range. " \
 							 f"Please input a index from 0 to {len(self.ams_instance.customers_registry)}"
 		with redirect_stdout(StringIO()) as stdout:
 			with mock.patch('builtins.input', side_effect=inputed_inputs):

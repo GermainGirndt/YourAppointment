@@ -21,10 +21,10 @@ class ConsoleGetter():
         return validated_customer_birthday
 
     @staticmethod
-    def get_customer_id_number():
-        customer_id_number = input("Enter the customer's ID number: ")
-        validated_customer_id_number = Validators().validate_id_number(customer_id_number)
-        return validated_customer_id_number
+    def get_customer_personal_id():
+        customer_personal_id = input("Enter the customer's ID number: ")
+        validated_customer_personal_id = Validators().validate_personal_id(customer_personal_id)
+        return validated_customer_personal_id
 
     @staticmethod
     def get_customer_address_street_and_number():

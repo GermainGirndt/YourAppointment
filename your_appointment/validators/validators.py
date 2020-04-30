@@ -94,23 +94,23 @@ class Validators():
                 return date_to_validate #noy using validated_date because it would be a datatime object
 
     @staticmethod
-    def validate_id_number(id_number_to_validate):
-        Validators().raise_type_error_if_not_string(id_number_to_validate)
+    def validate_personal_id(personal_id_to_validate):
+        Validators().raise_type_error_if_not_string(personal_id_to_validate)
         checks = 0
         while checks < 2:
-            while len(id_number_to_validate.replace("-","").replace(".","")) != 11:
+            while len(personal_id_to_validate.replace("-","").replace(".","")) != 11:
                 checks = 0
                 print(f"Invalid input. The customer id muss have 11 digits and comply to the required format")
-                id_number_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
-                Validators().raise_type_error_if_not_string(id_number_to_validate)
+                personal_id_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
+                Validators().raise_type_error_if_not_string(personal_id_to_validate)
             checks += 1
-            while not id_number_to_validate.replace("-","").replace(".","").isnumeric():
+            while not personal_id_to_validate.replace("-","").replace(".","").isnumeric():
                 checks = 0
                 print(f"Invalid input. The id number may only have numbers, points and dashes")
-                id_number_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
-                Validators().raise_type_error_if_not_string(id_number_to_validate)
+                personal_id_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
+                Validators().raise_type_error_if_not_string(personal_id_to_validate)
             checks += 1
-        return id_number_to_validate
+        return personal_id_to_validate
 
     @staticmethod
     def validate_customer_address_street_and_number(address_street_and_number_to_validate):
