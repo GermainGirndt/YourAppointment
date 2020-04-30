@@ -6,27 +6,17 @@ import sqlite3
 
 class AppointmentsManagementSystem():
 
-
 	def __init__(self):
 		self.customers_registry = []
 
 	def add_customer_to_registry(self):
+		new_customer = self.add_new_customer()
+		customer_data = new_customer.return_customer_data()
+		self.customers_registry.append(customer_data)
 
-		customer_data = self.get_customer_data()
-		register_data = self.get_register_data()
-
-		self.customers_registry.append(customer_data + register_data)
-
-	def get_customer_data(self):
+	def add_new_customer(self):
 		new_customer = customer()
-		return new_customer.return_customer_data()
-
-	def get_register_data(self):
-		customer_register_day = datetime.now().strftime("%Y-%m-%d")
-		customer_register_time = datetime.now().strftime("%H:%M")
-		customer_register_status = "Active"
-		register_data = [customer_register_day, customer_register_time, customer_register_status]
-		return register_data
+		return new_customer
 
 	def remove_customer_by_index(self):
 		max_range = len(self.customers_registry)
@@ -88,10 +78,11 @@ class customer():
 		self.status = "Active"
 
 	def return_customer_data(self):
-		customer_register = [self.forename, self.surname, self.birthday,
+		customer_data = [self.forename, self.surname, self.birthday,
 							 self.id_number, self.address_street_and_number,
-							 self.address_other, self.address_city, self.address_state]
-		return customer_register
+							 self.address_other, self.address_city, self.address_state,
+							 self.register_date, self.register_time, self.status]
+		return customer_data
 
 
 if __name__ == "__main__":
