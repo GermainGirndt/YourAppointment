@@ -88,7 +88,9 @@ class customer():
 		self.status = "Active"
 
 	def return_customer_data(self):
-		customer_register = [self.forename, self.surname, self.birthday, self.id_number, self.address_street_and_number, self.address_other, self.address_city, self.address_state]
+		customer_register = [self.forename, self.surname, self.birthday,
+							 self.id_number, self.address_street_and_number,
+							 self.address_other, self.address_city, self.address_state]
 		return customer_register
 
 
