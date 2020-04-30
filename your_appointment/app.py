@@ -83,8 +83,3 @@ class customer():
 							 self.address_other, self.address_city, self.address_state,
 							 self.register_date, self.register_time, self.status]
 		return customer_data
-
-
-if __name__ == "__main__":
-	system = ClassesManagementSystem()
-	system.add_customer()
