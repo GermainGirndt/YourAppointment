@@ -20,37 +20,37 @@ class test_remove_customer_by_index(unittest.TestCase):
 			self.ams_instance.add_customer_to_registry()
 		with mock.patch('builtins.input', side_effect=self.right_inputs_customer_id_1):
 			self.ams_instance.add_customer_to_registry()
-		self.assertEqual(len(self.ams_instance.customers_register), 2) #Checks
-		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
-		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry), 2) #Checks
+		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
+		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_registry)
 
 	def test_remove_1_customer_by_index_passes(self):
 		rightId = "0"
 		with mock.patch('builtins.input', side_effect=rightId):
 			self.ams_instance.remove_customer_by_index()
-		self.assertEqual(len(self.ams_instance.customers_register),1)
-		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry),1)
+		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
 
 	def test_remove_1_customer_by_index_passes2(self):
 		rightId = ["1"]
 		with mock.patch('builtins.input', side_effect=rightId):
 			self.ams_instance.remove_customer_by_index()
-		self.assertEqual(len(self.ams_instance.customers_register), 1)
-		self.assertNotIn(self.right_inputs_customer_id_1, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry), 1)
+		self.assertNotIn(self.right_inputs_customer_id_1, self.ams_instance.customers_registry)
 
 
 	def test_remove_1_customer_by_index_fails_inexisting_index(self):
 		wrong_input_id = "200"
 		right_input_id = "0"
 		inputed_inputs = [wrong_input_id, right_input_id]
-		expected_exception = f"The inputed value is out of range. Please input a index from 0 to {len(self.ams_instance.customers_register)}"
+		expected_exception = f"The inputed value is out of range. Please input a index from 0 to {len(self.ams_instance.customers_registry)}"
 		with redirect_stdout(StringIO()) as stdout:
 			with mock.patch('builtins.input', side_effect=inputed_inputs):
 				self.ams_instance.remove_customer_by_index()
 		printed_messages = stdout.getvalue()
 		self.assertIn(expected_exception, printed_messages)
-		self.assertEqual(len(self.ams_instance.customers_register), 1)
-		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry), 1)
+		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
 
 
 	def test_remove_1_customer_by_index_fails_type_error(self):
@@ -58,25 +58,25 @@ class test_remove_customer_by_index(unittest.TestCase):
 		with mock.patch('builtins.input', side_effect=wrong_input):
 			with self.assertRaises(TypeError):
 				self.ams_instance.remove_customer_by_index()
-		self.assertEqual(len(self.ams_instance.customers_register), 2)
-		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
-		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry), 2)
+		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
+		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_registry)
 
 	def test_remove_1_customer_by_index_fails_value_error(self):
 		wrong_input = ["lala"]
 		with mock.patch('builtins.input', side_effect=wrong_input):
 			with self.assertRaises(ValueError):
 				self.ams_instance.remove_customer_by_index()
-		self.assertEqual(len(self.ams_instance.customers_register), 2)
-		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
-		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry), 2)
+		self.assertIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
+		self.assertIn(self.right_inputs_customer_id_1, self.ams_instance.customers_registry)
 
 	def test_remove_2_customers_by_index_passes(self):
 		rightId = ["0","1"]
 		with mock.patch('builtins.input', side_effect=rightId):
 			self.ams_instance.remove_customer_by_index()
-		self.assertEqual(len(self.ams_instance.customers_register),1)
-		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_register)
+		self.assertEqual(len(self.ams_instance.customers_registry),1)
+		self.assertNotIn(self.right_inputs_customer_id_0, self.ams_instance.customers_registry)
 
 
 	def tearDown(self):

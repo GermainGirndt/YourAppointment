@@ -6,7 +6,7 @@ from contextlib import redirect_stdout
 from datetime import datetime
 from app import AppointmentsManagementSystem as Ams
 
-class test_add_customer_to_registry(unittest.TestCase):
+class test_add_customer_to_memory(unittest.TestCase):
 
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
     customer_register_time = datetime.now().strftime("%H:%M")
@@ -18,22 +18,22 @@ class test_add_customer_to_registry(unittest.TestCase):
 
     def setUp(self):
         self.ams_instance = Ams()
-        self.assertEqual(len(self.ams_instance.customers_register), 0)
+        self.assertEqual(len(self.ams_instance.customers_registry), 0)
 
     def test_add_1_customer_passes(self):
         with mock.patch('builtins.input', side_effect=self.right_inputs_customer_id_0):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[0], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[0], self.right_inputs_customer_id_0)
 
-    def test_add_2_customers_register_passes(self):
+    def test_add_2_customers_registry_passes(self):
         with mock.patch('builtins.input', side_effect=self.right_inputs_customer_id_0):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[0], self.right_inputs_customer_id_0)
-        self.assertEqual(len(self.ams_instance.customers_register), 1)
+        self.assertEqual(self.ams_instance.customers_registry[0], self.right_inputs_customer_id_0)
+        self.assertEqual(len(self.ams_instance.customers_registry), 1)
         with mock.patch('builtins.input', side_effect=self.right_inputs_customer_id_1):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[1], self.right_inputs_customer_id_1)
-        self.assertEqual(self.ams_instance.customers_register, [self.right_inputs_customer_id_0, self.right_inputs_customer_id_1])
+        self.assertEqual(self.ams_instance.customers_registry[1], self.right_inputs_customer_id_1)
+        self.assertEqual(self.ams_instance.customers_registry, [self.right_inputs_customer_id_0, self.right_inputs_customer_id_1])
 
     def test_add_1_customer_fails_forename_value_error(self):
         wrong_forename_input = "João2"
@@ -43,7 +43,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -56,7 +56,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -68,7 +68,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -81,7 +81,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -94,7 +94,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -107,7 +107,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -119,7 +119,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -131,7 +131,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -143,7 +143,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -156,7 +156,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -168,7 +168,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -180,7 +180,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -192,7 +192,7 @@ class test_add_customer_to_registry(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_register[-1], self.right_inputs_customer_id_0)
+        self.assertEqual(self.ams_instance.customers_registry[-1], self.right_inputs_customer_id_0)
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 

@@ -8,14 +8,14 @@ class AppointmentsManagementSystem():
 
 
 	def __init__(self):
-		self.customers_register = []
+		self.customers_registry = []
 
 	def add_customer_to_registry(self):
 
 		customer_data = self.get_customer_data()
 		register_data = self.get_register_data()
 
-		self.customers_register.append(customer_data + register_data)
+		self.customers_registry.append(customer_data + register_data)
 
 	def get_customer_data(self):
 		new_customer = customer()
@@ -29,9 +29,9 @@ class AppointmentsManagementSystem():
 		return register_data
 
 	def remove_customer_by_index(self):
-		max_range = len(self.customers_register)
+		max_range = len(self.customers_registry)
 		customer_id = int(ConsoleRemover().remove_customer_by_index(max_range))
-		del self.customers_register[customer_id]
+		del self.customers_registry[customer_id]
 
 	def remove_customer_by_name(self):
 		return 1
