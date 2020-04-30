@@ -16,8 +16,16 @@ class test_add_customer_to_database(unittest.TestCase):
                                   "Rua Bom Sucesso, 487", "Casa", "São Paulo",
                                   "SP", customer_register_day, customer_register_time, "Active")
 
+    RIGHT_RETURN_CUSTOMER_ID_0 = (0, "João", "da Silva", "23-05-1978", "297.586.890-10",
+                                  "Rua Bom Sucesso, 487", "Casa", "São Paulo",
+                                  "SP", customer_register_day, customer_register_time, "Active")
+
     RIGHT_INPUTS_CUSTOMER_ID_1 = ("Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201",
                                   "Rio de Janeiro", "RJ", customer_register_day, customer_register_time, "Active")
+
+    RIGHT_RETURN_CUSTOMER_ID_1 = (1, "Joana", "Silveira", "17-02-1972", "434.763.780-20", "Felicidade, 14", "Ap. 201",
+                                  "Rio de Janeiro", "RJ", customer_register_day, customer_register_time, "Active")
+
 
     def setUp(self):
         self.conn = sqlite3.connect('YourAppointment.db')
@@ -28,7 +36,7 @@ class test_add_customer_to_database(unittest.TestCase):
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_0):
             self.ams_instance.add_new_customer_to_database()
             self.c.execute("SELECT * FROM customers")
-        self.assertEqual(self.c.fetchone(), self.RIGHT_INPUTS_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.c.fetchone())
 
     def tearDown(self):
         self.conn.close()

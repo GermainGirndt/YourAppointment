@@ -32,17 +32,17 @@ class test_add_customer_to_memory(unittest.TestCase):
     def test_add_1_customer_passes(self):
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_0):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[0], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[0])
 
     def test_add_2_customers_registry_passes(self):
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_0):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[0], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[0])
         self.assertEqual(len(self.ams_instance.customers_registry), 1)
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
             self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[1], self.RIGHT_RETURN_CUSTOMER_ID_1)
-        self.assertEqual(self.ams_instance.customers_registry, [self.RIGHT_RETURN_CUSTOMER_ID_0, self.RIGHT_RETURN_CUSTOMER_ID_1])
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[1])
+        self.assertEqual([self.RIGHT_RETURN_CUSTOMER_ID_0, self.RIGHT_RETURN_CUSTOMER_ID_1], self.ams_instance.customers_registry)
 
     def test_add_1_customer_fails_forename_value_error(self):
         wrong_forename_input = "João2"
@@ -52,10 +52,9 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-
 
     def test_add_1_customer_fails_surname_value_error(self):
         wrong_surname_input = "da Silva2"
@@ -65,7 +64,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -77,10 +76,9 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-
 
     def test_add_1_customer_fails_customer_id(self):
         wrong_customer_id_input = "24011978"
@@ -90,7 +88,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -103,10 +101,9 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-
 
     def test_add_1_customer_fails_address_street_and_number(self):
         wrong_address_street_and_number_input = "XX Street !"
@@ -116,7 +113,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -128,7 +125,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -140,7 +137,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -152,10 +149,9 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
-
 
     def test_add_1_customer_fails_address_city(self):
         wrong_address_city_input = "New York 101"
@@ -165,7 +161,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -177,7 +173,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -189,7 +185,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -201,7 +197,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.ams_instance.customers_registry[-1], self.RIGHT_RETURN_CUSTOMER_ID_0)
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_0, self.ams_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -228,7 +224,6 @@ class test_add_customer_to_memory(unittest.TestCase):
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.ams_instance.add_customer_to_registry()
-
 
     def test_add_1_customer_fails_type_error4(self):
         wrong_address_street_and_number_input = 3
