@@ -36,22 +36,38 @@ class AppointmentsManagementSystem():
 		new_customer = customer()
 		conn = sqlite3.connect('YourAppointment.db')
 		c = conn.cursor()
+
+
 		c.execute("""CREATE TABLE customers (
-             forename text,
-             surname text,
-             birthdate text,
-             id_num text,
-             address_street_and_number text,
-             address_other text,
-             address_city text,
-             address_state text,
-             register_date text,
-             register_time text,
-             status text
-             )""")
-		c.execute("INSERT INTO customers VALUES (:fn, :sn, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)",
+			CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            FORENAME TEXT,
+            SURNAME TEXT,
+            BIRTHDATE TEXT,
+            PERSONAL_ID TEXT,
+            ADDRESS_STREET_AND_NUMBER TEXT,
+            ADDRESS_OTHER TEXT,
+            ADDRESS_CITY TEXT,
+            ADDRESS_STATE TEXT,
+            REGISTER_DATE TEXT,
+            REGISTER_TIME TEXT,
+            STATUS TEXT
+            )""")
+
+		c.execute("""INSERT INTO customers(
+			FORENAME,
+            SURNAME,
+            BIRTHDATE,
+            PERSONAL_ID,
+            ADDRESS_STREET_AND_NUMBER,
+            ADDRESS_OTHER,
+            ADDRESS_CITY,
+            ADDRESS_STATE,
+            REGISTER_DATE,
+            REGISTER_TIME,
+            STATUS
+            ) VALUES (:fn, :sn, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
 				  {'fn': new_customer.forename, 'sn': new_customer.surname,
-				   'bd':new_customer.birthday, 'in': new_customer.id_number,
+				   'bd':new_customer.birthday, 'in': new_customer.personal_id,
 				   'asn': new_customer.address_street_and_number,
 				   'ao': new_customer.address_other, 'ac': new_customer.address_city,
 				   'as': new_customer.address_state, 'rd': new_customer.register_date,
@@ -68,7 +84,7 @@ class customer():
 		self.forename = ConsoleGetter().get_customer_forename()
 		self.surname = ConsoleGetter().get_customer_surname()
 		self.birthday = ConsoleGetter().get_customer_birthday()
-		self.id_number = ConsoleGetter().get_customer_id_number()
+		self.personal_id = ConsoleGetter().get_customer_personal_id()
 		self.address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
 		self.address_other = ConsoleGetter().get_customer_address_other()
 		self.address_city = ConsoleGetter().get_customer_address_city()
@@ -79,7 +95,7 @@ class customer():
 
 	def return_customer_data(self):
 		customer_data = [self.forename, self.surname, self.birthday,
-							 self.id_number, self.address_street_and_number,
+							 self.personal_id, self.address_street_and_number,
 							 self.address_other, self.address_city, self.address_state,
 							 self.register_date, self.register_time, self.status]
 		return customer_data
