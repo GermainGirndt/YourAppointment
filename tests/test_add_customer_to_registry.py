@@ -4,7 +4,7 @@ from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
 from datetime import datetime
-from app import AppointmentsManagementSystem as Ams
+from app import AppointmentManagementSystem as Ams
 
 class test_add_customer_to_memory(unittest.TestCase):
 

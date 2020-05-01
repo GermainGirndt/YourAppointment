@@ -4,7 +4,7 @@ from datetime import datetime
 import sqlite3
 
 
-class AppointmentsManagementSystem():
+class AppointmentManagementSystem():
 
 	def __init__(self):
 		self.customers_registry = []

@@ -1,6 +1,6 @@
 import set_test_path
 import unittest
-from app import AppointmentsManagementSystem
+from app import AppointmentManagementSystem
 from app import Database
 import sqlite3
 import os
@@ -34,7 +34,7 @@ class test_add_customer_to_database(unittest.TestCase):
             os.remove(db_file)
 
     def test_add_1_customer_to_database(self):
-        self.ams = AppointmentsManagementSystem()
+        self.ams = AppointmentManagementSystem()
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
             self.ams.add_new_customer_to_database()
         self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams.fetchone())

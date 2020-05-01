@@ -3,7 +3,7 @@ import unittest
 from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
-from app import AppointmentsManagementSystem as Ams
+from app import AppointmentManagementSystem as Ams
 from datetime import datetime
 
 class test_remove_customer_by_index(unittest.TestCase):
