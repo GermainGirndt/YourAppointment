@@ -1,191 +1,179 @@
-import datetime
+from datetime import datetime
+
 
 class Validators():
 
+    def __init__(self, value_to_validate):
+        self.checks = 0
+        self.value_to_validate = value_to_validate
+        self.sanitize_data()
 
-    @staticmethod
-    def raise_type_error_if_not_string(inputedValue):
-        if not isinstance(inputedValue,str):
-            raise TypeError(f"The value '{inputedValue}' is not a string")
+    def sanitize_data(self):
+        self.raise_type_error_if_not_string()
+        #Enter other sanitizing validators here
 
-    @staticmethod
-    def raise_value_error_if_not_numeric(inputedValue):
-        if not inputedValue.isnumeric():
-            raise ValueError(f"The value '{inputedValue}' is not numeric")
+    def has_length_less_than(self, max_length):
+        while len(self.value_to_validate) >= max_length:
+            self.checks = 0
+            print(f"Invalid input. The {self.value_name} may not be longer than {max_length} characters.")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks += 1
 
-    @staticmethod
-    def is_alpha_or_has_spaces(string_to_validate):
-        return True if string_to_validate.replace(" ", "").isalpha() else False
+    def raise_type_error_if_not_string(self):
+        if not isinstance(self.value_to_validate,str):
+            raise TypeError(f"The inputed value is not a string.")
+        
+    
+    def is_numeric(self):
+        while not self.value_to_validate.isnumeric():
+            self.checks = 0
+            print(f"Invalid input. The {self.value_name} muss be a number")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks = +1
 
-    @staticmethod
-    def is_alphanumeric_or_has_spaces_dots_commas_and_dashes(string_to_validate):
-        return True if string_to_validate.replace(" ", "").replace(",","").replace(".","").replace("-","").isalnum() else False
-
-    @staticmethod
-    def validate_alpha_and_spaces_len25(string_to_validate):
-        Validators().raise_type_error_if_not_string(string_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alpha_or_has_spaces(string_to_validate):
-                checks = 0
-                print("Invalid input. The name may only contain letter or spaces.")
-                string_to_validate = input("Enter the customer's name: ")
-            checks += 1
-            while len(string_to_validate) > 25:
-                checks = 0
-                print("Invalid input. The name may not be longer than 25 characters.")
-                string_to_validate = input("Enter the customer's name: ")
-            checks += 1
-        Validators().raise_type_error_if_not_string(string_to_validate)
-        return string_to_validate
-
-
-    @staticmethod
-    def validate_customer_forename(customer_forename_to_validate):
-        Validators().raise_type_error_if_not_string(customer_forename_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alpha_or_has_spaces(customer_forename_to_validate):
-                checks = 0
-                print("Invalid input. The forename may only contain letter or spaces.")
-                customer_forename_to_validate = input("Enter the customer's forename: ")
-                Validators().raise_type_error_if_not_string(customer_forename_to_validate)
-            checks += 1
-            while len(customer_forename_to_validate) > 20:
-                checks = 0
-                print("Invalid input. The forename may not be longer than 25 characters.")
-                customer_forename_to_validate = input("Enter the customer's forename: ")
-                Validators().raise_type_error_if_not_string(customer_forename_to_validate)
-            checks += 1
-        Validators().raise_type_error_if_not_string(customer_forename_to_validate)
-        return customer_forename_to_validate
-
-
-    @staticmethod
-    def validate_customer_surname(customer_surname_to_validate):
-        Validators().raise_type_error_if_not_string(customer_surname_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alpha_or_has_spaces(customer_surname_to_validate):
-                checks = 0
-                print("Invalid input. The surname may only contain letter or spaces.")
-                customer_surname_to_validate = input("Enter the customer's surname: ")
-                Validators().raise_type_error_if_not_string(customer_surname_to_validate)
-            checks += 1
-            while len(customer_surname_to_validate) > 20:
-                checks = 0
-                print("Invalid input. The surname may not be longer than 25 characters.")
-                customer_surname_to_validate = input("Enter the customer's surname: ")
-                Validators().raise_type_error_if_not_string(customer_surname_to_validate)
-            checks += 1
-        return customer_surname_to_validate
-
-    @staticmethod
-    def validate_customer_birthdate(date_to_validate):
-        Validators().raise_type_error_if_not_string(date_to_validate)
+    def validate_index_max_range(self, max_range):
+        if max_range == 0:
+            print(f"The are no elements in the index of {self.value_name}")
+            return 0
         while True:
             try:
-                datetime.datetime.strptime(date_to_validate, '%d-%m-%Y')
+                while not (0 <= int(self.value_to_validate) <= max_range):
+                    self.checks = 0
+                    print(f"Invalid input. The {self.value_name} muss be between 1 and {max_range}")
+                    self.value_to_validate = input(f"Enter the {self.value_name}: ")
+                    self.sanitize_data()
             except ValueError:
-                print("Invalid input. The birthdate muss comply to the required format")
-                date_to_validate = input("Enter the customer's birthday (DD-MM-YYYY): ")
-                Validators().raise_type_error_if_not_string(date_to_validate)
+                self.checks = 0
+                self.is_numeric()
             else:
-                return date_to_validate #noy using validated_date because it would be a datatime object
+                self.checks += 1
+                break
+        
 
-    @staticmethod
-    def validate_personal_id(personal_id_to_validate):
-        Validators().raise_type_error_if_not_string(personal_id_to_validate)
-        checks = 0
-        while checks < 2:
-            while len(personal_id_to_validate.replace("-","").replace(".","")) != 11:
-                checks = 0
-                print(f"Invalid input. The customer id muss have 11 digits and comply to the required format")
-                personal_id_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
-                Validators().raise_type_error_if_not_string(personal_id_to_validate)
-            checks += 1
-            while not personal_id_to_validate.replace("-","").replace(".","").isnumeric():
-                checks = 0
-                print(f"Invalid input. The id number may only have numbers, points and dashes")
-                personal_id_to_validate = input("Enter the customer's birthname (DD-MM-YYYY): ")
-                Validators().raise_type_error_if_not_string(personal_id_to_validate)
-            checks += 1
-        return personal_id_to_validate
+    def is_alpha_or_has_spaces(self):
+        while not self.value_to_validate.replace(" ", "").isalpha():
+            self.checks = 0
+            print(f"Invalid input. The {self.value_name} may only contain letter or spaces.")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks = 1
 
-    @staticmethod
-    def validate_customer_address_street_and_number(address_street_and_number_to_validate):
-        Validators().raise_type_error_if_not_string(address_street_and_number_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alphanumeric_or_has_spaces_dots_commas_and_dashes(address_street_and_number_to_validate):
-                checks = 0
-                print("Invalid input. The address may not contain special caracters.")
-                address_street_and_number_to_validate = input("Enter the customer's street and number: ")
-            checks += 1
-            while len(address_street_and_number_to_validate) > 25:
-                checks = 0
-                print("Invalid input. The address may not be longer than 25 characters.")
-                address_street_and_number_to_validate = input("Enter the customer's street and number: ")
-            checks += 1
-        Validators().raise_type_error_if_not_string(address_street_and_number_to_validate)
-        return address_street_and_number_to_validate
+    def is_numeric_or_has_dots_and_dashes(self):
+        while not self.value_to_validate.replace("-", "").replace(".", "").isnumeric():
+            self.checks = 0
+            print(f"Invalid input. The {self.value_name} may only have numbers, points and dashes")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks += 1
 
 
-    @staticmethod
-    def validate_customer_address_others(address_others_to_validate):
-        Validators().raise_type_error_if_not_string(address_others_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alphanumeric_or_has_spaces_dots_commas_and_dashes(address_others_to_validate):
-                checks = 0
-                print("Invalid input. The address may not contain special caracters.")
-                address_others_to_validate = input("Enter the customer's street and number: ")
-            checks += 1
-            while len(address_others_to_validate) > 25:
-                checks = 0
-                print("Invalid input. The address may not be longer than 25 characters.")
-                address_others_to_validate = input("Enter the customer's street and number: ")
-            checks += 1
-        Validators().raise_type_error_if_not_string(address_others_to_validate)
-        return address_others_to_validate
+
+    def is_alphanumeric_or_has_spaces_dots_commas_and_dashes(self):
+        while not self.value_to_validate.replace(" ", "").replace(",", "").replace(".", "").replace("-", "").isalnum():
+            self.checks = 0
+            print(f"Invalid input. The {self.value_name} may not contain special caracters.")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks += 1
+
+    def is_date_between(self, min_date_year, max_date_year):
+        year_to_validate = int(datetime.strptime(self.value_to_validate, '%d-%m-%Y').year)
+        while not (min_date_year < year_to_validate < max_date_year):
+            self.checks = 0
+            print(f"Invalid input. Insert a valid {self.value_name}")
+            self.value_to_validate = input(f"Enter the {self.value_name} (DD-MM-YYYY): ")
+            self.sanitize_data()
+            self.validate_date()
+            year_to_validate = int(datetime.strptime(self.value_to_validate, '%d-%m-%Y').year)
+        self.checks += 1
+
+    def validate_date_birthday(self, min_date_year, max_date_year):
+        while self.checks < 2:
+            self.validate_date()
+            self.is_date_between(min_date_year, max_date_year)
 
 
-    @staticmethod
-    def validate_customer_adress_city(customer_adress_city_to_validate):
-        Validators().raise_type_error_if_not_string(customer_adress_city_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alpha_or_has_spaces(customer_adress_city_to_validate):
-                checks = 0
-                print("Invalid input. The city name may only contain letter or spaces.")
-                customer_adress_city_to_validate = input("Enter the customer's city name: ")
-                Validators().raise_type_error_if_not_string(customer_adress_city_to_validate)
-            checks += 1
-            while len(customer_adress_city_to_validate) > 25:
-                checks = 0
-                print("Invalid input. The city name may not be longer than 25 characters.")
-                customer_adress_city_to_validate = input("Enter the customer's city name: ")
-                Validators().raise_type_error_if_not_string(customer_adress_city_to_validate)
-            checks += 1
-        Validators().raise_type_error_if_not_string(customer_adress_city_to_validate)
-        return customer_adress_city_to_validate
+    def validate_date(self):
+        while True:
+            try:
+                datetime.strptime(self.value_to_validate, '%d-%m-%Y')
+            except ValueError:
+                self.checks = 0
+                print(f"Invalid input. The {self.value_name} muss comply to the required format")
+                self.value_to_validate = input(f"Enter the {self.value_name} (DD-MM-YYYY): ")
+                self.sanitize_data()
+            else:
+                self.checks += 1
+                break
 
-    @staticmethod
-    def validate_customer_adress_state(customer_adress_state_to_validate):
-        Validators().raise_type_error_if_not_string(customer_adress_state_to_validate)
-        checks = 0
-        while checks < 2:
-            while not Validators().is_alpha_or_has_spaces(customer_adress_state_to_validate):
-                checks = 0
-                print("Invalid input. The state name may only contain letter or spaces.")
-                customer_adress_state_to_validate = input("Enter the customer's state name: ")
-                Validators().raise_type_error_if_not_string(customer_adress_state_to_validate)
-            checks += 1
-            while len(customer_adress_state_to_validate) > 25:
-                checks = 0
-                print("Invalid input. The state name may not be longer than 25 characters.")
-                customer_adress_state_to_validate = input("Enter the customer's state name: ")
-                Validators().raise_type_error_if_not_string(customer_adress_state_to_validate)
-            checks += 1
-        Validators().raise_type_error_if_not_string(customer_adress_state_to_validate)
-        return customer_adress_state_to_validate
+    def has_11_digits_or_points_and_dashes(self):
+        while len(self.value_to_validate.replace("-", "").replace(".", "")) != 11:
+            print(f"Invalid input. The {self.value_name} muss have 11 digits and comply to the required format")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_data()
+        self.checks += 1
+
+    def validate_customer_forename(self):
+        self.value_name = "customer's forename"
+        while self.checks < 2:
+            self.is_alpha_or_has_spaces()
+            self.has_length_less_than(20)
+        return self.value_to_validate
+
+    def validate_customer_surname(self):
+        self.value_name = "customer's surname"
+        while self.checks < 2:
+            self.is_alpha_or_has_spaces()
+            self.has_length_less_than(30)
+        return self.value_to_validate
+
+    def validate_customer_birthdate(self):
+        self.value_name = "customer's birthdate"
+        self.validate_date_birthday(1900, 2020)
+        sorted_date = datetime.strptime(self.value_to_validate, "%d-%m-%Y").strftime("%Y-%m-%d")
+        return sorted_date
+
+    def validate_customer_personal_id(self):
+        self.value_name = "customer's personal id"
+        while self.checks < 2:
+            self.is_numeric_or_has_dots_and_dashes()
+            self.has_11_digits_or_points_and_dashes()
+        return self.value_to_validate
+
+    def validate_customer_address_street_and_number(self):
+        self.value_name = "customer's street and number"
+        self.sanitize_data()
+        while self.checks < 2:
+            self.is_alphanumeric_or_has_spaces_dots_commas_and_dashes()
+            self.has_length_less_than(30)
+        return self.value_to_validate
+
+    def validate_customer_address_others(self):
+        self.value_name = "customer's address (other)"
+        while self.checks < 2:
+            self.is_alphanumeric_or_has_spaces_dots_commas_and_dashes()
+            self.has_length_less_than(25)
+        return self.value_to_validate
+
+    def validate_customer_adress_city(self):
+        self.value_name = "customer's city name"
+        while self.checks < 2:
+            self.is_alpha_or_has_spaces()
+            self.has_length_less_than(25)
+        return self.value_to_validate
+
+    def validate_customer_adress_state(self):
+        self.value_name = "customer's state name"
+        while self.checks < 2:
+            self.is_alpha_or_has_spaces()
+            self.has_length_less_than(25)
+        return self.value_to_validate
+    
+    def validate_customer_index(self, max_range):
+        self.value_name = "id of the customer to be removed"
+        while self.checks < 2:
+            self.is_numeric()
+            self.validate_index_max_range(max_range)
+        return self.value_to_validate

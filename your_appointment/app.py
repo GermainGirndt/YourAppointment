@@ -22,7 +22,7 @@ class AppointmentManagementSystem():
 	def remove_customer_by_index(self):
 		max_range = len(self.customers_registry)
 		customer_id = int(ConsoleRemover().remove_customer_by_index(max_range))
-		del self.customers_registry[customer_id]
+		del self.customers_registry[customer_id - 1] #The registry starts by 0 | the ID by 1
 
 	def remove_customer_by_name(self):
 		return 1
