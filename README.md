@@ -1,4 +1,5 @@
-YourAppointment is a project developed in order to put fundamental programming concepts in practice such as OOP, TDD, Validation, Relational Database, Database Integration, Version Control System and others.
+#### Preface
+YourAppointment is a project developed in order to put fundamental programming concepts in practice such as OOP, TDD, Validation, Relational Database, Database Integration and Version Control System.
 
 
 # YourAppointment (in development)
