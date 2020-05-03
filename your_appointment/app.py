@@ -11,18 +11,20 @@ class ConsoleUI():
 
     def initialize(self):
         self.show_welcome_message()
+        self.define_screens()
         while True:
             self.show_menu()
 
     def show_welcome_message(self):
         print("Welcome to YourAppoint - by Germain M. Pereira\n")
-        self.actual_screen = 1
 
-        self.class_selection_screen = 1
+    def define_screens(self):
+        self.actual_screen = 1
+        self.CLASS_SELECTION_SCREEN = 1
         self.action_selection_screen = 2
 
     def show_menu(self):
-        if self.actual_screen == self.class_selection_screen:
+        if self.actual_screen == self.CLASS_SELECTION_SCREEN:
             self.select_class()
             self.selected_class = self.validated_user_input
         elif self.actual_screen == self.action_selection_screen:
@@ -102,7 +104,7 @@ class ConsoleUI():
             self.execute_appointment_action()
         elif self.selected_class == customer:
             self.execute_customer_action()
-        self.actual_screen = self.class_selection_screen
+        self.actual_screen = self.CLASS_SELECTION_SCREEN
 
 
 
@@ -123,7 +125,7 @@ class ConsoleUI():
             #add exclude appointment function
         else:
             raise ValueError
-        self.actual_screen = self.class_selection_screen
+        self.actual_screen = self.CLASS_SELECTION_SCREEN
 
     def execute_customer_action(self):
         new_customer = "1"
@@ -141,7 +143,7 @@ class ConsoleUI():
             #add exclude customer function
         else:
             raise ValueError
-        self.actual_screen = self.class_selection_screen
+        self.actual_screen = self.CLASS_SELECTION_SCREEN
 
     def print_line(self):
         print("---------")
