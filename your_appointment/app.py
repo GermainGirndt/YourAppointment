@@ -1,128 +1,150 @@
-from console.console_getter  import ConsoleGetter
-from console.console_remover import ConsoleRemover
-from datetime import datetime
-import sqlite3
+import sys
+import time
+from validators.validators import Validators
+from data_manager import DataManager as dm
 
 
-class AppointmentManagementSystem():
+class ConsoleUI():
+    def __init__(self):
+        self.dm = dm()
+        self.initialize()
 
-	def __init__(self):
-		self.customers_registry = []
-		self.db = Database()
+    def initialize(self):
+        self.show_welcome_message()
+        while True:
+            self.show_menu()
 
-	def add_customer_to_registry(self):
-		new_customer = self.add_new_customer()
-		customer_data = new_customer.return_customer_data()
-		self.customers_registry.append(customer_data)
+    def show_welcome_message(self):
+        print("Welcome to YourAppoint - by Germain M. Pereira\n")
+        self.actual_screen = 1
 
-	def add_new_customer(self):
-		new_customer = Customer()
-		return new_customer
+        self.class_selection_screen = 1
+        self.action_selection_screen = 2
 
-	def remove_customer_by_index(self):
-		max_range = len(self.customers_registry)
-		customer_id = int(ConsoleRemover().remove_customer_by_index(max_range))
-		del self.customers_registry[customer_id - 1] #The registry starts by 0 | the ID by 1
-
-	def remove_customer_by_name(self):
-		return 1
-	
-	def add_classes(self):
-		pass
-	
-	def remove_classes(self):
-		pass
-
-	def add_new_customer_to_database(self):
-		new_customer = Customer()
-		self.db.create_table_customer()
-		self.db.add_new_customer(new_customer)
-
-	def fetchone(self):
-		customer = self.db.fetchone("customers")
-		return customer
+    def show_menu(self):
+        if self.actual_screen == self.class_selection_screen:
+            self.select_class()
+            self.selected_class = self.validated_user_input
+        elif self.actual_screen == self.action_selection_screen:
+            self.select_class_action()
+            self.selected_class_action = self.validated_user_input
+            self.execute_class_action()
+        else:
+            raise ValueError("Inexisting Screen")
 
 
-class Database():
+    def get_user_input(self, choose_option_text, valid_options):
+        user_input = input(choose_option_text)
+        v = Validators(user_input)
+        self.validated_user_input = v.validate_selected_input(valid_options, choose_option_text)
+        print("")
 
-	def __init__(self):
-		self.conn = sqlite3.connect('YourAppointment.db')
-		self.c = self.conn.cursor()
+    def select_class(self):
+        self.print_line()
+        choose_option_text =  "Select the Database's table:\n" \
+                "1 - Appointment\n" \
+                "2 - Customer\n" \
+                "9 - Exit\n" \
+                ""
+        valid_options = ["1","2","9"]
+        self.get_user_input(choose_option_text, valid_options)
+        self.actual_screen += 1
 
-	def set_cursor(self):
-		return self.c
+    def select_class_action(self):
+        self.print_line()
+        appointment_class = "1"
+        customer_class = "2"
+        exit_app = "9"
+        if self.selected_class == appointment_class:
+            self.select_appointment_action()
+        elif self.selected_class == customer_class:
+            self.select_customer_action()
+        elif self.selected_class == exit_app:
+            print("Goobye!")
+            time.sleep(3)
+            sys.exit()
+        else:
+            raise ValueError
 
-	def commit_and_close(self):
-		self.conn.commit()
-		self.conn.close()
-
-	def create_table_customer(self):
-		self.conn = sqlite3.connect('YourAppointment.db')
-		self.c.execute("""CREATE TABLE customers (
-					CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-		            FORENAME TEXT,
-		            SURNAME TEXT,
-		            BIRTHDATE TEXT,
-		            PERSONAL_ID TEXT,
-		            ADDRESS_STREET_AND_NUMBER TEXT,
-		            ADDRESS_OTHER TEXT,
-		            ADDRESS_CITY TEXT,
-		            ADDRESS_STATE TEXT,
-		            REGISTER_DATE TEXT,
-		            REGISTER_TIME TEXT,
-		            STATUS TEXT
-		            )""")
-		self.commit_and_close()
-
-
-	def fetchone(self, table):
-		self.conn = sqlite3.connect('YourAppointment.db')
-		self.c.execute(f"SELECT * FROM {table}")
-		obj = self.c.fetchone()
-		return obj
-
-	def add_new_customer(self, new_customer):
-		self.conn = sqlite3.connect('YourAppointment.db')
-		self.c.execute("""INSERT INTO customers(
-					FORENAME,
-		            SURNAME,
-		            BIRTHDATE,
-		            PERSONAL_ID,
-		            ADDRESS_STREET_AND_NUMBER,
-		            ADDRESS_OTHER,
-		            ADDRESS_CITY,
-		            ADDRESS_STATE,
-		            REGISTER_DATE,
-		            REGISTER_TIME,
-		            STATUS
-		            ) VALUES (:fn, :sn, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
-				  {'fn': new_customer.forename, 'sn': new_customer.surname,
-				   'bd': new_customer.birthday, 'in': new_customer.personal_id,
-				   'asn': new_customer.address_street_and_number,
-				   'ao': new_customer.address_other, 'ac': new_customer.address_city,
-				   'as': new_customer.address_state, 'rd': new_customer.register_date,
-				   'rt': new_customer.register_time, 'st': new_customer.status})
-		self.commit_and_close()
+    def select_appointment_action(self):
+        choose_option_text = \
+            "Select the Database's action:\n" \
+               "1 - Add new Appointment\n" \
+               "2 - Update Appointment\n" \
+               "3 - Exclude Appointment\n" \
+               "9 - Return\n" \
+               ""
+        valid_options = ["1","2", "3", "9"]
+        self.get_user_input(choose_option_text, valid_options)
 
 
-class Customer():
+    def select_customer_action(self):
+        choose_option_text = \
+            "Select the Database's action:\n" \
+               "1 - Add new Customer\n" \
+               "2 - Update Customer\n" \
+               "3 - Exclude Customer\n" \
+               "9 - Return\n" \
+               ""
 
-	def __init__(self):
-		self.forename = ConsoleGetter().get_customer_forename()
-		self.surname = ConsoleGetter().get_customer_surname()
-		self.birthday = ConsoleGetter().get_customer_birthday()
-		self.personal_id = ConsoleGetter().get_customer_personal_id()
-		self.address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
-		self.address_other = ConsoleGetter().get_customer_address_other()
-		self.address_city = ConsoleGetter().get_customer_address_city()
-		self.address_state = ConsoleGetter().get_customer_address_state()
-		self.register_date = datetime.now().strftime("%Y-%m-%d")
-		self.register_time = datetime.now().strftime("%H:%M")
-		self.status = "Active"
+        valid_options = ["1","2", "3", "9"]
+        self.get_user_input(choose_option_text, valid_options)
 
-	def return_customer_data(self):
-		customer_data = [self.forename, self.surname, self.birthday,
-							 self.personal_id, self.address_street_and_number,
-							 self.address_other, self.address_city, self.address_state,
-							 self.register_date, self.register_time, self.status]
-		return customer_data
+
+    def execute_class_action(self):
+        self.print_line()
+        appointment = "1"
+        customer = "2"
+        return_screen = "9"
+        if self.selected_class_action == return_screen:
+            print("Selected Option: Return to the last screen\n\n")
+        elif self.selected_class == appointment:
+            self.execute_appointment_action()
+        elif self.selected_class == customer:
+            self.execute_customer_action()
+        self.actual_screen = self.class_selection_screen
+
+
+
+    def execute_appointment_action(self):
+        new_appointment = "1"
+        update_appointment = "2"
+        exclude_appointment = "3"
+        if self.selected_class_action == new_appointment:
+            print("Selected Option: Add new Appointment\n\n")
+            #add new appointment function
+
+        elif self.selected_class_action == update_appointment:
+            print("Selected Option: Update Appointment\n\n")
+            #add update appointment function
+
+        elif self.selected_class_action == exclude_appointment:
+            print("Selected Option: Exclude Appointment\n\n")
+            #add exclude appointment function
+        else:
+            raise ValueError
+        self.actual_screen = self.class_selection_screen
+
+    def execute_customer_action(self):
+        new_customer = "1"
+        update_customer = "2"
+        exclude_customer = "3"
+        if self.selected_class_action == new_customer:
+            print("Selected Option: Add new Customer\n\n")
+            #add new customer function
+            self.dm.add_new_customer_to_database()
+        elif self.selected_class_action == update_customer:
+            print("Selected Option: Update Customer\n\n")
+            #add update customer function
+        elif self.selected_class_action == exclude_customer:
+            print("Selected Option: Exclude Customer\n\n")
+            #add exclude customer function
+        else:
+            raise ValueError
+        self.actual_screen = self.class_selection_screen
+
+    def print_line(self):
+        print("---------")
+
+if __name__ == "__main__":
+    c = ConsoleUI()

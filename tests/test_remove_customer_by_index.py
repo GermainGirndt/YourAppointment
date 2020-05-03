@@ -3,7 +3,7 @@ import unittest
 from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
-from app import AppointmentManagementSystem as Ams
+from data_manager import DataManager as Dm
 from datetime import datetime
 
 class test_remove_customer_by_index(unittest.TestCase):
@@ -30,7 +30,7 @@ class test_remove_customer_by_index(unittest.TestCase):
 									  "Rio de Janeiro", "RJ",
 									  customer_register_day, customer_register_time, "Active"]
 
-		self.ams_instance = Ams()
+		self.ams_instance = Dm()
 		with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
 			self.ams_instance.add_customer_to_registry()
 		with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_2):

@@ -4,12 +4,15 @@ from unittest import mock
 from io import StringIO
 from contextlib import redirect_stdout
 from datetime import datetime
-from app import AppointmentManagementSystem as Ams
+from data_manager import DataManager as Dm
 
 class test_add_customer_to_memory(unittest.TestCase):
 
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
     customer_register_time = datetime.now().strftime("%H:%M")
+
+    customer_class = "2"
+
 
     RIGHT_INPUTS_CUSTOMER_ID_1 = ["João", "da Silva", "23-05-1978",
                                   "297.586.890-10", "Rua Bom Sucesso, 487",
@@ -31,24 +34,24 @@ class test_add_customer_to_memory(unittest.TestCase):
                                   customer_register_day, customer_register_time, "Active"]
 
     def setUp(self):
-        self.ams_instance = Ams()
-        self.assertEqual(len(self.ams_instance.customers_registry), 0)
+        self.dm_instance = Dm()
+        self.assertEqual(len(self.dm_instance.customers_registry), 0)
 
     def test_add_1_customer_passes(self):
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
-            self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[0])
+            self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[0])
 
     def test_add_2_customers_registry_passes(self):
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
-            self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[0])
-        self.assertEqual(len(self.ams_instance.customers_registry), 1)
+            self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[0])
+        self.assertEqual(len(self.dm_instance.customers_registry), 1)
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_2):
-            self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_2, self.ams_instance.customers_registry[1])
+            self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_2, self.dm_instance.customers_registry[1])
         self.assertEqual([self.RIGHT_RETURN_CUSTOMER_ID_1, self.RIGHT_RETURN_CUSTOMER_ID_2],
-                         self.ams_instance.customers_registry)
+                         self.dm_instance.customers_registry)
 
     def test_add_1_customer_fails_forename_value_error(self):
         wrong_forename_input = "João2"
@@ -57,8 +60,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's forename may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -69,8 +72,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's surname may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -81,8 +84,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's birthdate muss comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -94,8 +97,8 @@ class test_add_customer_to_memory(unittest.TestCase):
                              "comply to the required format\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -107,8 +110,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's personal id may only have numbers, points and dashes\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -119,8 +122,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's street and number may not contain special caracters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -131,8 +134,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's street and number may not be longer than 30 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -143,8 +146,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's address (other) may not contain special caracters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -155,8 +158,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's address (other) may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -167,8 +170,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's city name may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -179,8 +182,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's city name may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -191,8 +194,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's state name may only contain letter or spaces.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -203,8 +206,8 @@ class test_add_customer_to_memory(unittest.TestCase):
         expected_exception = "Invalid input. The customer's state name may not be longer than 25 characters.\n"
         with redirect_stdout(StringIO()) as stdout:
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams_instance.customers_registry[-1])
+                self.dm_instance.add_customer_to_registry()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm_instance.customers_registry[-1])
         printed_messages = stdout.getvalue()
         self.assertIn(expected_exception, printed_messages)
 
@@ -214,7 +217,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         inputed_inputs.insert(0, wrong_customer_name_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
+                self.dm_instance.add_customer_to_registry()
 
     def test_add_1_customer_fails_type_error2(self):
         wrong_customer_id_input = 2
@@ -222,7 +225,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         inputed_inputs.insert(3, wrong_customer_id_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
+                self.dm_instance.add_customer_to_registry()
 
     def test_add_1_customer_fails_type_error3(self):
         wrong_address_other_input = True
@@ -230,7 +233,7 @@ class test_add_customer_to_memory(unittest.TestCase):
         inputed_inputs.insert(6, wrong_address_other_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
+                self.dm_instance.add_customer_to_registry()
 
     def test_add_1_customer_fails_type_error4(self):
         wrong_address_street_and_number_input = 3
@@ -238,10 +241,10 @@ class test_add_customer_to_memory(unittest.TestCase):
         inputed_inputs.insert(4, wrong_address_street_and_number_input)
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
-                self.ams_instance.add_customer_to_registry()
+                self.dm_instance.add_customer_to_registry()
 
     def tearDown(self):
-        self.ams_instance = None
+        self.dm_instance = None
 
 if __name__ == "__main__":
     unittest.main()

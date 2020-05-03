@@ -1,7 +1,7 @@
 import set_test_path
 import unittest
-from app import AppointmentManagementSystem
-from app import Database
+from data_manager import DataManager
+from data_manager import Database
 import sqlite3
 import os
 from datetime import datetime
@@ -34,10 +34,10 @@ class test_add_customer_to_database(unittest.TestCase):
             os.remove(db_file)
 
     def test_add_1_customer_to_database(self):
-        self.ams = AppointmentManagementSystem()
+        self.dm = DataManager()
         with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
-            self.ams.add_new_customer_to_database()
-        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.ams.fetchone())
+            self.dm.add_new_customer_to_database()
+        self.assertEqual(self.RIGHT_RETURN_CUSTOMER_ID_1, self.dm.fetchone())
 
 
 if __name__ == "__main__":
