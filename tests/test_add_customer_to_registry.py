@@ -5,9 +5,9 @@ from io import StringIO
 from contextlib import redirect_stdout
 from datetime import datetime
 from data_manager import DataManager as Dm
-from test_resources import TestResourcesCustomer
+from quick_test_resources import QuickTestResources
 
-class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
+class TestAddCustomerToRegistry(QuickTestResources, unittest.TestCase):
 
 
     def setUp(self):

@@ -7,7 +7,7 @@ from datetime import datetime
 from data_manager import DataManager as Dm
 
 
-class TestResourcesCustomer():
+class QuickTestResources(unittest.TestCase):
 
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
     customer_register_time = datetime.now().strftime("%H:%M")
@@ -89,5 +89,43 @@ class TestResourcesCustomer():
         with self.assertRaises(TypeError):
             with mock.patch('builtins.input', side_effect=inputed_inputs):
                 self.dm_instance.add_customer_to_registry()
+
+    def quick_test_remove_customer_list_by_index(
+            self, id_of_customer_to_be_removed, customer_to_be_removed
+    ):
+        expected_customers_num = self.quick_get_number_of_customers_in_registry() - 1
+        with mock.patch('builtins.input', side_effect=id_of_customer_to_be_removed):
+            self.dm_instance.remove_customer_by_index()
+        self.assertEqual(expected_customers_num, self.quick_get_number_of_customers_in_registry())
+        self.assertNotIn(customer_to_be_removed, self.dm_instance.customers_registry)
+
+    def quick_test_remove_customer_handles_value_error(
+            self, customer_to_be_removed,
+            right_inputs_customer_id, index_to_insert_the_wrong_input,
+            wrong_input, expected_exception
+    ):
+        inputed_inputs = right_inputs_customer_id[:]
+        inputed_inputs.insert(index_to_insert_the_wrong_input, wrong_input)
+        with redirect_stdout(StringIO()) as stdout:
+            self.quick_test_remove_customer_list_by_index(
+                inputed_inputs, customer_to_be_removed
+            )
+        printed_messages = stdout.getvalue()
+        self.assertIn(expected_exception, printed_messages)
+
+    def quick_test_remove_customer_raises_type_error(
+            self, wrong_input
+    ):
+        customer_number_start = self.quick_get_number_of_customers_in_registry()
+        with self.assertRaises(TypeError):
+            with mock.patch('builtins.input', side_effect=wrong_input):
+                self.dm_instance.remove_customer_by_index()
+        self.quick_test_if_num_of_customers_in_registry_equals(customer_number_start)
+        self.quick_test_if_registry_contain_customers_list(
+            [self.RIGHT_RETURN_CUSTOMER_ID_1, self.RIGHT_RETURN_CUSTOMER_ID_2]
+        )
+
+
+
 
 
