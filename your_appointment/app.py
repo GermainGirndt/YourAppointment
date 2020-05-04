@@ -5,6 +5,14 @@ from data_manager import DataManager as dm
 
 
 class ConsoleUI():
+
+    CLASS_SELECTION_SCREEN = 1
+    ACTION_SELECTION_SCREEN = 2
+    APPOINTMENT_CLASS = "1"
+    CUSTOMER_CLASS = "2"
+    EXIT_APP = "9"
+    RETURN_SCREEN = "9"
+
     def __init__(self):
         self.dm = dm()
         self.initialize()
@@ -20,14 +28,12 @@ class ConsoleUI():
 
     def define_screens(self):
         self.actual_screen = 1
-        self.CLASS_SELECTION_SCREEN = 1
-        self.action_selection_screen = 2
 
     def show_menu(self):
         if self.actual_screen == self.CLASS_SELECTION_SCREEN:
             self.select_class()
             self.selected_class = self.validated_user_input
-        elif self.actual_screen == self.action_selection_screen:
+        elif self.actual_screen == self.ACTION_SELECTION_SCREEN:
             self.select_class_action()
             self.selected_class_action = self.validated_user_input
             self.execute_class_action()
@@ -35,33 +41,31 @@ class ConsoleUI():
             raise ValueError("Inexisting Screen")
 
 
-    def get_user_input(self, choose_option_text, valid_options):
-        user_input = input(choose_option_text)
+    def get_user_input(self, CHOOSE_OPTION_TEXT, VALID_OPTIONS):
+        user_input = input(CHOOSE_OPTION_TEXT)
         v = Validators(user_input)
-        self.validated_user_input = v.validate_selected_input(valid_options, choose_option_text)
+        self.validated_user_input = v.validate_selected_input(VALID_OPTIONS, CHOOSE_OPTION_TEXT)
         print("")
 
     def select_class(self):
         self.print_line()
-        choose_option_text =  "Select the Database's table:\n" \
+        CHOOSE_OPTION_TEXT =  "Select the Database's table:\n" \
                 "1 - Appointment\n" \
                 "2 - Customer\n" \
                 "9 - Exit\n" \
                 ""
-        valid_options = ["1","2","9"]
-        self.get_user_input(choose_option_text, valid_options)
+        VALID_OPTIONS = ["1","2","9"]
+        self.get_user_input(CHOOSE_OPTION_TEXT, VALID_OPTIONS)
         self.actual_screen += 1
 
     def select_class_action(self):
         self.print_line()
-        appointment_class = "1"
-        customer_class = "2"
-        exit_app = "9"
-        if self.selected_class == appointment_class:
+
+        if self.selected_class == APPOINTMENT_CLASS:
             self.select_appointment_action()
-        elif self.selected_class == customer_class:
+        elif self.selected_class == CUSTOMER_CLASS:
             self.select_customer_action()
-        elif self.selected_class == exit_app:
+        elif self.selected_class == EXIT_APP:
             print("Goobye!")
             time.sleep(3)
             sys.exit()
@@ -69,19 +73,19 @@ class ConsoleUI():
             raise ValueError
 
     def select_appointment_action(self):
-        choose_option_text = \
+        CHOOSE_OPTION_TEXT = \
             "Select the Database's action:\n" \
                "1 - Add new Appointment\n" \
                "2 - Update Appointment\n" \
                "3 - Exclude Appointment\n" \
                "9 - Return\n" \
                ""
-        valid_options = ["1","2", "3", "9"]
-        self.get_user_input(choose_option_text, valid_options)
+        VALID_OPTIONS = ["1","2", "3", "9"]
+        self.get_user_input(CHOOSE_OPTION_TEXT, VALID_OPTIONS)
 
 
     def select_customer_action(self):
-        choose_option_text = \
+        CHOOSE_OPTION_TEXT = \
             "Select the Database's action:\n" \
                "1 - Add new Customer\n" \
                "2 - Update Customer\n" \
@@ -89,38 +93,35 @@ class ConsoleUI():
                "9 - Return\n" \
                ""
 
-        valid_options = ["1","2", "3", "9"]
-        self.get_user_input(choose_option_text, valid_options)
+        VALID_OPTIONS = ["1","2", "3", "9"]
+        self.get_user_input(CHOOSE_OPTION_TEXT, VALID_OPTIONS)
 
 
     def execute_class_action(self):
         self.print_line()
-        appointment = "1"
-        customer = "2"
-        return_screen = "9"
-        if self.selected_class_action == return_screen:
+        if self.selected_class_action == self.RETURN_SCREEN:
             print("Selected Option: Return to the last screen\n\n")
-        elif self.selected_class == appointment:
+        elif self.selected_class == self.APPOINTMENT_CLASS:
             self.execute_appointment_action()
-        elif self.selected_class == customer:
+        elif self.selected_class == self.CUSTOMER_CLASS:
             self.execute_customer_action()
         self.actual_screen = self.CLASS_SELECTION_SCREEN
 
 
 
     def execute_appointment_action(self):
-        new_appointment = "1"
-        update_appointment = "2"
-        exclude_appointment = "3"
-        if self.selected_class_action == new_appointment:
+        NEW_APPOINTMENT = "1"
+        UPDATE_APPOINTMENT = "2"
+        EXCLUDE_APPOINTMENT = "3"
+        if self.selected_class_action == NEW_APPOINTMENT:
             print("Selected Option: Add new Appointment\n\n")
             #add new appointment function
 
-        elif self.selected_class_action == update_appointment:
+        elif self.selected_class_action == UPDATE_APPOINTMENT:
             print("Selected Option: Update Appointment\n\n")
             #add update appointment function
 
-        elif self.selected_class_action == exclude_appointment:
+        elif self.selected_class_action == EXCLUDE_APPOINTMENT:
             print("Selected Option: Exclude Appointment\n\n")
             #add exclude appointment function
         else:
@@ -128,17 +129,17 @@ class ConsoleUI():
         self.actual_screen = self.CLASS_SELECTION_SCREEN
 
     def execute_customer_action(self):
-        new_customer = "1"
-        update_customer = "2"
-        exclude_customer = "3"
-        if self.selected_class_action == new_customer:
+        NEW_CUSTOMER = "1"
+        UPDATE_CUSTOMER = "2"
+        EXCLUDE_CUSTOMER = "3"
+        if self.selected_class_action == NEW_CUSTOMER:
             print("Selected Option: Add new Customer\n\n")
             #add new customer function
-            self.dm.add_new_customer_to_database()
-        elif self.selected_class_action == update_customer:
+            self.dm.add_NEW_CUSTOMER_to_database()
+        elif self.selected_class_action == UPDATE_CUSTOMER:
             print("Selected Option: Update Customer\n\n")
             #add update customer function
-        elif self.selected_class_action == exclude_customer:
+        elif self.selected_class_action == EXCLUDE_CUSTOMER:
             print("Selected Option: Exclude Customer\n\n")
             #add exclude customer function
         else:
