@@ -79,7 +79,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_customer_id(self):
         wrong_personal_id_input = "24011978"
-        expected_exception = "Invalid input. The customer's personal id muss have 11 digits and " \
+        expected_exception = "Invalid input. " \
+                             "The customer's personal id muss have 11 digits and " \
                              "comply to the required format\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
@@ -92,7 +93,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_customer_id2(self):
         wrong_personal_id_input = "1234567891!"
-        expected_exception = "Invalid input. The customer's personal id may only have numbers, points and dashes\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's personal id may only have numbers, points and dashes\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -103,7 +105,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_street_and_number(self):
         wrong_address_street_and_number_input = "XX Street !"
-        expected_exception = "Invalid input. The customer's street and number may not contain special caracters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's street and number may not contain special caracters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -114,7 +117,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_street_and_number2(self):
         wrong_address_street_and_number_input = "testing too long adress lalalalala"
-        expected_exception = "Invalid input. The customer's street and number may not be longer than 30 characters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's street and number may not be longer than 30 characters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -125,7 +129,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_other(self):
         wrong_address_others_input = "Apartment 101!"
-        expected_exception = "Invalid input. The customer's address (other) may not contain special caracters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's address (other) may not contain special caracters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -136,7 +141,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_other2(self):
         wrong_address_others_input = "testing too long adress lalalalala"
-        expected_exception = "Invalid input. The customer's address (other) may not be longer than 25 characters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's address (other) may not be longer than 25 characters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -147,7 +153,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_city(self):
         wrong_address_city_input = "New York 101"
-        expected_exception = "Invalid input. The customer's city name may only contain letter or spaces.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's city name may only contain letter or spaces.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -158,7 +165,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_city2(self):
         wrong_address_city_input = "testing too long city lalalalalalala"
-        expected_exception = "Invalid input. The customer's city name may not be longer than 25 characters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's city name may not be longer than 25 characters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -169,7 +177,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_state(self):
         wrong_address_state_input = "Florida 101"
-        expected_exception = "Invalid input. The customer's state name may only contain letter or spaces.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's state name may only contain letter or spaces.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
@@ -180,7 +189,8 @@ class test_add_customer_to_memory(TestResourcesCustomer, unittest.TestCase):
 
     def test_add_1_customer_fails_address_state2(self):
         wrong_address_state_input = "testing too long state lalalalalalala"
-        expected_exception = "Invalid input. The customer's state name may not be longer than 25 characters.\n"
+        expected_exception = "Invalid input. " \
+                             "The customer's state name may not be longer than 25 characters.\n"
         self.quick_test_add_customer_handles_value_error(
             right_inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1,
