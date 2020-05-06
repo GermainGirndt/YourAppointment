@@ -35,7 +35,6 @@ class DataManager():
 
 	def add_new_customer_to_database(self):
 		new_customer = Customer()
-		self.db.create_table_customer()
 		self.db.add_new_customer(new_customer)
 
 	def fetchone(self):
@@ -62,6 +61,7 @@ class Database():
 					CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		            FORENAME TEXT,
 		            SURNAME TEXT,
+		            FULLNAME TEXT,
 		            BIRTHDATE TEXT,
 		            PERSONAL_ID TEXT,
 		            ADDRESS_STREET_AND_NUMBER TEXT,
@@ -81,11 +81,30 @@ class Database():
 		obj = self.c.fetchone()
 		return obj
 
+	def fetchall(self, table):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute(f"SELECT * FROM {table}")
+		obj = self.c.fetchall()
+		return obj
+
+	def select_by_customer_id(self, table, customer_id):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute(f"SELECT * FROM 	{table} WHERE CUSTOMER_ID = {customer_id}")
+		obj = self.c.fetchall()
+		return obj
+
+	def select_by_fullname(self, table, fullname):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute(f"SELECT * FROM 	{table} WHERE FULLNAME = '{fullname}'")
+		obj = self.c.fetchall()
+		return obj
+
 	def add_new_customer(self, new_customer):
 		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("""INSERT INTO customers(
 					FORENAME,
 		            SURNAME,
+		            FULLNAME,
 		            BIRTHDATE,
 		            PERSONAL_ID,
 		            ADDRESS_STREET_AND_NUMBER,
@@ -95,8 +114,8 @@ class Database():
 		            REGISTER_DATE,
 		            REGISTER_TIME,
 		            STATUS
-		            ) VALUES (:fn, :sn, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
-				  {'fn': new_customer.forename, 'sn': new_customer.surname,
+		            ) VALUES (:fn, :sn, :fln, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
+				  {'fn': new_customer.forename, 'sn': new_customer.surname, 'fln': new_customer.fullname,
 				   'bd': new_customer.birthday, 'in': new_customer.personal_id,
 				   'asn': new_customer.address_street_and_number,
 				   'ao': new_customer.address_other, 'ac': new_customer.address_city,
@@ -108,20 +127,21 @@ class Database():
 class Customer():
 
 	def __init__(self):
+		self.register_date = datetime.now().strftime("%Y-%m-%d")
+		self.register_time = datetime.now().strftime("%H:%M")
+		self.status = "Active"
 		self.forename = ConsoleGetter().get_customer_forename()
 		self.surname = ConsoleGetter().get_customer_surname()
+		self.fullname = f"{self.forename} {self.surname}"
 		self.birthday = ConsoleGetter().get_customer_birthday()
 		self.personal_id = ConsoleGetter().get_customer_personal_id()
 		self.address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
 		self.address_other = ConsoleGetter().get_customer_address_other()
 		self.address_city = ConsoleGetter().get_customer_address_city()
 		self.address_state = ConsoleGetter().get_customer_address_state()
-		self.register_date = datetime.now().strftime("%Y-%m-%d")
-		self.register_time = datetime.now().strftime("%H:%M")
-		self.status = "Active"
 
 	def return_customer_data(self):
-		customer_data = [self.forename, self.surname, self.birthday,
+		customer_data = [self.forename, self.surname, self.fullname, self.birthday,
 							 self.personal_id, self.address_street_and_number,
 							 self.address_other, self.address_city, self.address_state,
 							 self.register_date, self.register_time, self.status]

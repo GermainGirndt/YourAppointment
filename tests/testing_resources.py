@@ -28,12 +28,12 @@ class TestingShortcuts():
                                   "297.586.890-10", "Rua Bom Sucesso, 487",
                                   "Casa", "São Paulo", "SP"]
 
-    RIGHT_RETURN_CUSTOMER_ID_1 = ["João", "da Silva", "1978-05-23",
+    RIGHT_RETURN_CUSTOMER_ID_1 = ["João", "da Silva", "João da Silva", "1978-05-23",
                                   "297.586.890-10", "Rua Bom Sucesso, 487",
                                   "Casa", "São Paulo", "SP",
                                   customer_register_day, customer_register_time, "Active"]
 
-    DB_RIGHT_RETURN_CUSTOMER_ID_1 = (1, "João", "da Silva", "1978-05-23", "297.586.890-10",
+    DB_RIGHT_RETURN_CUSTOMER_ID_1 = (1, "João", "da Silva", "João da Silva", "1978-05-23", "297.586.890-10",
                                   "Rua Bom Sucesso, 487", "Casa", "São Paulo", "SP",
                                      customer_register_day, customer_register_time, "Active")
 
@@ -43,12 +43,12 @@ class TestingShortcuts():
                                  "Rio de Janeiro", "RJ"]
 
 
-    RIGHT_RETURN_CUSTOMER_ID_2 = ["Joana", "Silveira", "1972-02-17",
+    RIGHT_RETURN_CUSTOMER_ID_2 = ["Joana", "Silveira", "Joana Silveira", "1972-02-17",
                                   "434.763.780-20", "Felicidade, 14", "Ap. 201",
                                  "Rio de Janeiro", "RJ",
                                   customer_register_day, customer_register_time, "Active"]
 
-    DB_RIGHT_RETURN_CUSTOMER_ID_2 = (2, "Joana", "Silveira", "1972-02-17", "434.763.780-20",
+    DB_RIGHT_RETURN_CUSTOMER_ID_2 = (2, "Joana", "Silveira", "Joana Silveira", "1972-02-17", "434.763.780-20",
                                      "Felicidade, 14", "Ap. 201", "Rio de Janeiro", "RJ",
                                      customer_register_day, customer_register_time, "Active")
 
@@ -132,6 +132,24 @@ class TestingShortcuts():
         self.shortcut_test_if_registry_contain_customers_list(
             [self.RIGHT_RETURN_CUSTOMER_ID_1, self.RIGHT_RETURN_CUSTOMER_ID_2]
         )
+
+
+    def shortcut_add_customer_to_datebase(self, right_customer_inputs, db_right_return_customer):
+        with mock.patch('builtins.input', side_effect=right_customer_inputs):
+            self.dm.add_new_customer_to_database()
+        self.shortcut_test_if_customer_in_db_by_id(db_right_return_customer)
+
+    def shortcut_test_if_customer_in_db_by_fullname(self, db_right_return_customer):
+        fullname = db_right_return_customer[3]
+        self.assertEqual([db_right_return_customer],
+            self.dm.db.select_by_fullname(table="customers", fullname=fullname))
+
+
+    def shortcut_test_if_customer_in_db_by_id(self, db_right_return_customer):
+        customer_id = db_right_return_customer[0]
+        self.assertEqual([db_right_return_customer],
+            self.dm.db.select_by_customer_id(table="customers", customer_id=customer_id))
+
 
 
 
