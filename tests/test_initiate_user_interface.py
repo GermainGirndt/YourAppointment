@@ -6,12 +6,11 @@ from contextlib import redirect_stdout
 from app import ConsoleUI
 
 
+
 class TestUserInterface(unittest.TestCase):
 
     def setUp(self):
         self.console_ui = ConsoleUI()
-
-    
 
 
 if __name__ == "__main__":
