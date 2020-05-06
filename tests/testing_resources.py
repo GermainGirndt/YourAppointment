@@ -28,7 +28,7 @@ class QuickTestResources(unittest.TestCase):
                                   "297.586.890-10", "Rua Bom Sucesso, 487",
                                   "Casa", "São Paulo", "SP"]
 
-    RIGHT_RETURN_CUSTOMER_ID_1 = ["João", "da Silva", "1978-05-23",
+    RIGHT_RETURN_CUSTOMER_ID_1 = [1, "João", "da Silva", "1978-05-23",
                                   "297.586.890-10", "Rua Bom Sucesso, 487",
                                   "Casa", "São Paulo", "SP",
                                   customer_register_day, customer_register_time, "Active"]
@@ -38,7 +38,7 @@ class QuickTestResources(unittest.TestCase):
                                  "Rio de Janeiro", "RJ"]
 
 
-    RIGHT_RETURN_CUSTOMER_ID_2 = ["Joana", "Silveira", "1972-02-17",
+    RIGHT_RETURN_CUSTOMER_ID_2 = [2, "Joana", "Silveira", "1972-02-17",
                                   "434.763.780-20", "Felicidade, 14", "Ap. 201",
                                  "Rio de Janeiro", "RJ",
                                   customer_register_day, customer_register_time, "Active"]
