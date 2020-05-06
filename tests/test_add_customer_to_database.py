@@ -8,18 +8,29 @@ from datetime import datetime
 from unittest import mock
 from testing_resources import TestingShortcuts
 
-class test_add_customer_to_database(unittest.TestCase, TestingShortcuts):
+class test_add_new_customer_to_database(unittest.TestCase,TestingShortcuts):
 
     def setUp(self):
         db_file = "YourAppointment.db"
         if os.path.exists(db_file):
             os.remove(db_file)
-
-    def test_add_1_customer_to_database(self):
         self.dm = DataManager()
-        with mock.patch('builtins.input', side_effect=self.RIGHT_INPUTS_CUSTOMER_ID_1):
-            self.dm.add_new_customer_to_database()
-        self.assertEqual(self.DB_RIGHT_RETURN_CUSTOMER_ID_1, self.dm.fetchone())
+        self.dm.db.create_table_customer()
+
+
+    def test_add_customer_id_1_to_database(self):
+        self.shortcut_add_customer_to_datebase(
+            self.RIGHT_INPUTS_CUSTOMER_ID_1, self.DB_RIGHT_RETURN_CUSTOMER_ID_1
+        )
+
+    def test_add_customer_id_1_and_2_to_database(self):
+        self.test_add_customer_id_1_to_database()
+        self.shortcut_add_customer_to_datebase(
+            self.RIGHT_INPUTS_CUSTOMER_ID_2, self.DB_RIGHT_RETURN_CUSTOMER_ID_2
+        )
+
+
+
 
 
 if __name__ == "__main__":
