@@ -15,13 +15,13 @@ class TestAddCustomerToRegistry(TestingShortcuts, unittest.TestCase):
         self.shortcut_test_if_num_of_customers_in_registry_equals(0)
 
 
-    def test_add_costumer_id_1_to_registry_passes(self):
+    def test_add_custumer_id_1_to_registry_passes(self):
         self.shortcut_test_add_customer_to_registry(
             inputs=self.RIGHT_INPUTS_CUSTOMER_ID_1,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_1
         )
 
-    def test_add_costumer_id_2_to_registry_passes(self):
+    def test_add_custumer_id_2_to_registry_passes(self):
         self.shortcut_test_add_customer_to_registry(
             inputs=self.RIGHT_INPUTS_CUSTOMER_ID_2,
             expected_return=self.RIGHT_RETURN_CUSTOMER_ID_2
@@ -29,8 +29,8 @@ class TestAddCustomerToRegistry(TestingShortcuts, unittest.TestCase):
 
 
     def test_add_2_customers_registry_passes(self):
-        self.test_add_costumer_id_1_to_registry_passes()
-        self.test_add_costumer_id_2_to_registry_passes()
+        self.test_add_custumer_id_1_to_registry_passes()
+        self.test_add_custumer_id_2_to_registry_passes()
         self.shortcut_test_if_registry_contain_customers_list(
             list_with_expected_customers=
             [self.RIGHT_RETURN_CUSTOMER_ID_1, self.RIGHT_RETURN_CUSTOMER_ID_2]
