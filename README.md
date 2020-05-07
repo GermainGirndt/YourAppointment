@@ -1,5 +1,8 @@
-#### Preface
-YourAppointment is a project developed in order to put fundamental programming concepts in practice such as OOP, TDD, Validation, Relational Database, Database Integration and Version Control System.
+#### Brief Preface
+Last update: 2020/05/07  
+
+YourAppointment is my very first medium-term project developed from scratch, which is my first draft for a future project of this type using Django.
+YourAppoint served the purpouse of putting fundamental programming concepts in practice such as OOP, TDD, Data Validation, Relational Database Management and Data Base Integration (SQLite), Version Control Systems (GIT) and Software Architecture (still working on it hahaha).
 
 
 # YourAppointment (in development)
@@ -7,12 +10,10 @@ YourAppointment is a simple and practical App for Appointment Management.
       
    
 ## App's Goal
-YourAppointment's goal is to accelerate the **booking of appointments and services**, by letting the customers pick out of a time schedule the appointment which best suits their needs - instead of contacting the service provider.
+YourAppointment's goal is to organize the **appointment booking with clients**, by using a fast, clean and reliable User Interface for Customers and Appointments Management.
+ 
      
-  
-     
-## Project's Structure
-Last update: 2020/04/29    
+## Project's Structure  
   
 .  
 ├── LICENSE.txt  
@@ -40,4 +41,4 @@ Last update: 2020/04/29
    
        
 ## Credits
-Third parties code are properly referenced in ''References.txt''.
+Third parties' code are properly referenced in ''References.txt''.
