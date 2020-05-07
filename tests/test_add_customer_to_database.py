@@ -7,6 +7,8 @@ import os
 from datetime import datetime
 from unittest import mock
 from testing_resources import TestingShortcuts
+from contextlib import redirect_stdout
+from io import StringIO
 
 class test_add_new_customer_to_database(unittest.TestCase,TestingShortcuts):
 
@@ -15,7 +17,8 @@ class test_add_new_customer_to_database(unittest.TestCase,TestingShortcuts):
         if os.path.exists(db_file):
             os.remove(db_file)
         self.dm = DataManager()
-        self.dm.db.create_table_customer()
+        with redirect_stdout(StringIO()) as stdout:
+            self.dm.db.create_table_customer()
 
 
     def test_add_customer_id_1_to_database(self):

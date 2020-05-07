@@ -12,7 +12,7 @@ class TestingShortcuts():
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
     customer_register_time = datetime.now().strftime("%H:%M")
 
-    customer_class = "2"
+    CUSTOMER_CLASS = "2"
 
     INDEX_OF_FORENAME = 0
     INDEX_OF_SURNAME = 1
@@ -136,7 +136,8 @@ class TestingShortcuts():
 
     def shortcut_add_customer_to_datebase(self, right_customer_inputs, db_right_return_customer):
         with mock.patch('builtins.input', side_effect=right_customer_inputs):
-            self.dm.add_new_customer_to_database()
+            with redirect_stdout(StringIO()) as stdout:
+                self.dm.add_new_customer_to_database()
         self.shortcut_test_if_customer_in_db_by_id(db_right_return_customer)
 
     def shortcut_test_if_customer_in_db_by_fullname(self, db_right_return_customer):
@@ -151,6 +152,10 @@ class TestingShortcuts():
             self.dm.db.select_by_customer_id(table="customers", customer_id=customer_id))
 
 
+    def shortcut_console_ui_test_if_customer_in_db_by_id(self, db_right_return_customer):
+        customer_id = db_right_return_customer[0]
+        self.assertEqual([db_right_return_customer],
+            self.console_ui.dm.db.select_by_customer_id(table="customers", customer_id=customer_id))
 
 
 

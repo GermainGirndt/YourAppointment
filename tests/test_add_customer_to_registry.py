@@ -2,7 +2,6 @@ import set_test_path
 import unittest
 from unittest import mock
 from io import StringIO
-from contextlib import redirect_stdout
 from datetime import datetime
 from data_manager import DataManager as Dm
 from testing_resources import TestingShortcuts
