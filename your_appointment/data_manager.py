@@ -24,15 +24,6 @@ class DataManager():
 		customer_id = int(ConsoleRemover().remove_customer_by_index(max_range))
 		del self.customers_registry[customer_id - 1] #The registry starts by 0 | the ID by 1
 
-	def remove_customer_by_name(self):
-		return 1
-	
-	def add_classes(self):
-		pass
-	
-	def remove_classes(self):
-		pass
-
 	def add_new_customer_to_database(self):
 		new_customer = Customer()
 		self.db.add_new_customer(new_customer)
@@ -102,6 +93,18 @@ class Database():
 	def select_by_fullname(self, table, fullname):
 		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM 	{table} WHERE FULLNAME = '{fullname}'")
+		obj = self.c.fetchall()
+		return obj
+
+	def select_by_forename(self, table, forename):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute(f"SELECT * FROM 	{table} WHERE FORENAME = '{forename}'")
+		obj = self.c.fetchall()
+		return obj
+
+	def select_entry_by_value(self, table, column, value):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute(f"SELECT * FROM 	{table} WHERE {column} = '{value}'")
 		obj = self.c.fetchall()
 		return obj
 

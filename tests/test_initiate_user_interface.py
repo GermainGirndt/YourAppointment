@@ -30,6 +30,7 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
     EXCLUDE_APPOINTMENT = "4"
 
     INPUTS_SELECT_ACTION_CREATE_CUSTOMERS = [CUSTOMER_CLASS, CREATE_CUSTOMER]
+    INPUTS_SELECT_ACTION_READ_CUSTOMERS = [CUSTOMER_CLASS, READ_CUSTOMER]
 
     def setUp(self):
         db_file = "YourAppointment.db"
@@ -55,6 +56,18 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
             inputs=create_customer_id_2_inputs,
             testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
             parameter=(self.DB_RIGHT_RETURN_CUSTOMER_ID_2)
+        )
+
+    def test_execute_customer_action_read_customers_table_by_name(self):
+        self.test_execute_customer_action_create_customer()
+        expected_message = f"{self.DB_RIGHT_RETURN_CUSTOMER_ID_1}"
+        customer_id_1_name = "João"
+        read_customer_inputs = self.INPUTS_SELECT_ACTION_READ_CUSTOMERS + [customer_id_1_name]
+        self.shortcut_test_console_ui_inputs(
+            inputs=read_customer_inputs,
+            testing_function=self.shortcut_test_if_expected_message_in_console_stdoutput,
+            parameter=expected_message,
+            use_printed_messages=True
         )
 
 if __name__ == "__main__":

@@ -12,8 +12,8 @@ class TestingShortcuts():
     customer_register_day = datetime.now().strftime("%Y-%m-%d")
     customer_register_time = datetime.now().strftime("%H:%M")
 
-    CUSTOMER_CLASS = "2"
 
+    #RightInputs
     INDEX_OF_FORENAME = 0
     INDEX_OF_SURNAME = 1
     INDEX_OF_BIRTHDATE = 2
@@ -60,7 +60,6 @@ class TestingShortcuts():
             self.dm_instance.add_customer_to_registry()
         self.assertEqual(expected_return, actual_return[INDEX_LAST_ADDED_COSTUMER])
         self.shortcut_test_if_num_of_customers_in_registry_equals(expected_final_num_of_customers)
-
 
     def shortcut_test_add_customer_handles_value_error(
             self, right_inputs, expected_return,
@@ -158,13 +157,20 @@ class TestingShortcuts():
             self.console_ui.dm.db.select_by_customer_id(table="customers", customer_id=customer_id))
 
 
-    def shortcut_test_console_ui_inputs(self, inputs, testing_function, parameter):
+    def shortcut_test_console_ui_inputs(self, inputs, testing_function, parameter, use_printed_messages=False):
         try:
-            with redirect_stdout(StringIO()):
+            with redirect_stdout(StringIO()) as stdout:
                 with mock.patch('builtins.input', side_effect=inputs):
                     self.console_ui.initialize()
         except StopIteration:
-            testing_function(parameter)
+            if use_printed_messages == False:
+                testing_function(parameter)
+            else:
+                printed_messages = stdout.getvalue()
+                testing_function(parameter, printed_messages)
+
+    def shortcut_test_if_expected_message_in_console_stdoutput(self, expected_message, printed_messages):
+        self.assertIn(expected_message, printed_messages)
 
 
 

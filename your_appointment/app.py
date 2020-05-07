@@ -2,6 +2,7 @@ import sys
 import time
 from validators.validators import Validators
 from data_manager import DataManager as dm
+from console.console_getter import ConsoleGetter
 
 
 class ConsoleUI():
@@ -74,8 +75,8 @@ class ConsoleUI():
     def select_appointment_action(self):
         CHOOSE_OPTION_TEXT = \
             "Select the Database's action:\n" \
-               "1 - Create new Appointment\n" \
-               "2 - Read Appointments Table\n" \
+               "1 - Add Appointment\n" \
+               "2 - Search Appointment\n" \
                "3 - Update Appointment\n" \
                "4 - Delete Appointment\n" \
                "9 - Return\n" \
@@ -87,8 +88,8 @@ class ConsoleUI():
     def select_customer_action(self):
         CHOOSE_OPTION_TEXT = \
             "Select the Database's action:\n" \
-               "1 - Create new Customer\n" \
-               "2 - Read Customers Table\n" \
+               "1 - Add Customer\n" \
+               "2 - Search Customer\n" \
                "3 - Update Customer\n" \
                "4 - Delete Customer\n" \
                "9 - Return\n" \
@@ -110,16 +111,16 @@ class ConsoleUI():
 
 
     def execute_appointment_action(self):
-        CREATE_APPOINTMENT = "1"
-        READ_APPOINTMENT = "2"
+        ADD_APPOINTMENT = "1"
+        SEARCH_APPOINTMENT = "2"
         UPDATE_APPOINTMENT = "3"
         EXCLUDE_APPOINTMENT = "4"
-        if self.selected_class_action == CREATE_APPOINTMENT:
-            print("Selected Option: Create new Appointment\n\n")
+        if self.selected_class_action == ADD_APPOINTMENT:
+            print("Selected Option: Add Appointment\n\n")
             #Create new appointment function
 
-        elif self.selected_class_action == READ_APPOINTMENT:
-            print("Selected Option: Read Appointment\n\n")
+        elif self.selected_class_action == SEARCH_APPOINTMENT:
+            print("Selected Option: Search Appointment\n\n")
             # Create read appointment function
 
         elif self.selected_class_action == UPDATE_APPOINTMENT:
@@ -135,17 +136,23 @@ class ConsoleUI():
 
     def execute_customer_action(self):
         CREATE_CUSTOMER = "1"
-        READ_CUSTOMER = "2"
+        SEARCH_CUSTOMER = "2"
         UPDATE_CUSTOMER = "3"
         EXCLUDE_CUSTOMER = "4"
 
         if self.selected_class_action == CREATE_CUSTOMER:
-            print("Selected Option: Create new Customer\n\n")
+            print("Selected Option: Add Customer\n\n")
             #Create new customer function
             self.dm.add_new_customer_to_database()
-        elif self.selected_class_action == READ_CUSTOMER:
-            print("Selected Option: Read Customer\n\n")
-            # Create Read customer function
+        elif self.selected_class_action == SEARCH_CUSTOMER:
+            print("Selected Option: Search Customer\n\n")
+            forename = ConsoleGetter().get_customer_forename()
+            db_retuns = self.dm.db.select_entry_by_value(
+                table="customers",
+                column="FORENAME",
+                value=forename)
+            print(db_retuns)
+
         elif self.selected_class_action == UPDATE_CUSTOMER:
             print("Selected Option: Update Customer\n\n")
             #Create update customer function
