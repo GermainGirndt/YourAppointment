@@ -53,7 +53,6 @@ class Database():
 		self.conn.close()
 
 	def create_table_customers(self):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("""CREATE TABLE IF NOT EXISTS customers (
 					CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		            FORENAME TEXT,
@@ -75,10 +74,8 @@ class Database():
 			print(f"Customers Table Created!")
 		except:
 			print("An error ocurred by the creation from a table")
-		self.commit_and_close()
 
 	def create_table_appointments(self):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("PRAGMA foreign_keys = ON;")
 		self.c.execute("""CREATE TABLE IF NOT EXISTS appointments (
 					APPOINTMENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -96,41 +93,34 @@ class Database():
 			print(f"Appointments Table Created!")
 		except:
 			print("An error ocurred by the creation from a table")
-		self.commit_and_close()
 
 
 	def fetchone(self, table):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM {table}")
 		obj = self.c.fetchone()
 		return obj
 
 	def fetchall(self, table):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM {table}")
 		obj = self.c.fetchall()
 		return obj
 
 	def select_by_customer_id(self, table, customer_id):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM 	{table} WHERE CUSTOMER_ID = {customer_id}")
 		obj = self.c.fetchall()
 		return obj
 
 	def select_by_fullname(self, table, fullname):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM 	{table} WHERE FULLNAME = '{fullname}'")
 		obj = self.c.fetchall()
 		return obj
 
 	def select_by_forename(self, table, forename):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM 	{table} WHERE FORENAME = '{forename}'")
 		obj = self.c.fetchall()
 		return obj
 
 	def select_entry_by_value(self, table, column, value):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute(f"SELECT * FROM 	{table} WHERE {column} = '{value}'")
 		obj = self.c.fetchall()
 		return obj
@@ -146,7 +136,6 @@ class Database():
 
 
 	def add_new_customer(self, new_customer):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("""INSERT INTO customers(
 					FORENAME,
 		            SURNAME,
@@ -174,11 +163,9 @@ class Database():
 			print(f"Last customer added:{obj}")
 		except:
 			print("An error ocurred by inserting the customer to the table")
-		self.commit_and_close()
 
 
 	def add_new_appointment(self, new_appointment):
-		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("""INSERT INTO appointments(
 					CUSTOMER_ID,
 		            DAY,
@@ -196,6 +183,5 @@ class Database():
 			print(f"Last appointment added: {obj}")
 		except:
 			print("An error ocurred by inserting the appointment to the table")
-		self.commit_and_close()
 
 
