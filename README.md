@@ -1,7 +1,8 @@
 #### Brief Preface
 Last update: 2020/05/07  
 
-YourAppointment is my very first medium-term project developed from scratch, which is my first draft for a future project of this type using Django.
+YourAppointment is my very first medium-term project developed from scratch, which is my first draft for a future project of this type using Django.  
+  
 YourAppoint served the purpouse of putting fundamental programming concepts in practice such as OOP, TDD, Data Validation, Relational Database Management and Data Base Integration (SQLite), Version Control Systems (GIT) and Software Architecture (still working on it hahaha).
 
 
