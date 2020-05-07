@@ -1,5 +1,7 @@
 from console.console_getter  import ConsoleGetter
 from console.console_remover import ConsoleRemover
+from classes.customer import Customer
+from classes.appointment import Appointment
 from datetime import datetime
 import sqlite3
 
@@ -28,6 +30,10 @@ class DataManager():
 		new_customer = Customer()
 		self.db.add_new_customer(new_customer)
 
+	def add_new_appointment_to_database(self):
+		new_appointment = Appointment()
+		self.db.add_new_appointment(new_appointment)
+
 	def fetchone(self):
 		customer = self.db.fetchone("customers")
 		return customer
@@ -46,9 +52,9 @@ class Database():
 		self.conn.commit()
 		self.conn.close()
 
-	def create_table_customer(self):
+	def create_table_customers(self):
 		self.conn = sqlite3.connect('YourAppointment.db')
-		self.c.execute("""CREATE TABLE customers (
+		self.c.execute("""CREATE TABLE IF NOT EXISTS customers (
 					CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		            FORENAME TEXT,
 		            SURNAME TEXT,
@@ -67,6 +73,26 @@ class Database():
 		try:
 			self.c.execute(f"SELECT * FROM customers")
 			print(f"Customers Table Created!")
+		except:
+			print("An error ocurred by the creation from a table")
+		self.commit_and_close()
+
+	def create_table_appointments(self):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute("""CREATE TABLE IF NOT EXISTS appointments (
+					APPOINTMENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		            CUSTOMER_ID INTEGER,
+		            DAY TEXT,
+		            DURATION TEXT,
+		            REGISTER_DATE TEXT,
+		            REGISTER_TIME TEXT,
+		            STATUS TEXT,
+		            FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(CUSTOMER_ID)
+		            )""")
+
+		try:
+			self.c.execute(f"SELECT * FROM customers")
+			print(f"Appointments Table Created!")
 		except:
 			print("An error ocurred by the creation from a table")
 		self.commit_and_close()
@@ -150,25 +176,25 @@ class Database():
 		self.commit_and_close()
 
 
-class Customer():
+	def add_new_appointment(self, new_appointment):
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute("""INSERT INTO appointments(
+					CUSTOMER_ID,
+		            DAY,
+		            DURATION,
+		            REGISTER_DATE,
+		            REGISTER_TIME,
+		            STATUS
+		            ) VALUES (:cid, :day, :dur, :rd, :rt, :st)""",
+				  { 'cid': new_appointment.customer_id, 'day': new_appointment.day,
+					'dur': new_appointment.duration, 'rd': new_appointment.register_date,
+				   'rt': new_appointment.register_time, 'st': new_appointment.status})
+		try:
+			self.c.execute(f"SELECT * FROM appointments WHERE APPOINTMENT_ID = (SELECT max(APPOINTMENT_ID) FROM appointments)")
+			obj = self.c.fetchone()
+			print(f"Last appointment added: {obj}")
+		except:
+			print("An error ocurred by inserting the appointment to the table")
+		self.commit_and_close()
 
-	def __init__(self):
-		self.register_date = datetime.now().strftime("%Y-%m-%d")
-		self.register_time = datetime.now().strftime("%H:%M")
-		self.status = "Active"
-		self.forename = ConsoleGetter().get_customer_forename()
-		self.surname = ConsoleGetter().get_customer_surname()
-		self.fullname = f"{self.forename} {self.surname}"
-		self.birthday = ConsoleGetter().get_customer_birthday()
-		self.personal_id = ConsoleGetter().get_customer_personal_id()
-		self.address_street_and_number = ConsoleGetter().get_customer_address_street_and_number()
-		self.address_other = ConsoleGetter().get_customer_address_other()
-		self.address_city = ConsoleGetter().get_customer_address_city()
-		self.address_state = ConsoleGetter().get_customer_address_state()
 
-	def return_customer_data(self):
-		customer_data = [self.forename, self.surname, self.fullname, self.birthday,
-							 self.personal_id, self.address_street_and_number,
-							 self.address_other, self.address_city, self.address_state,
-							 self.register_date, self.register_time, self.status]
-		return customer_data

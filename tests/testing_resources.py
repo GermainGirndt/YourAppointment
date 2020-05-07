@@ -52,6 +52,14 @@ class TestingShortcuts():
                                      "Felicidade, 14", "Ap. 201", "Rio de Janeiro", "RJ",
                                      customer_register_day, customer_register_time, "Active")
 
+    ##Appointments
+
+    RIGHT_INPUTS_APPOINTMENT_ID_1_OF_CUSTOMER_ID_1 = ["1", "07-05-2020", "15:00-16:00"]
+
+    DB_RIGHT_RETURN_APPOINTMENT_ID_1_OF_CUSTOMER_ID_1 = (
+        1, 1, "2020-05-07", "15:00-16:00", customer_register_day, customer_register_time, "Active"
+    )
+
     def shortcut_test_add_customer_to_registry(self, inputs, expected_return):
         actual_return = self.dm_instance.customers_registry
         INDEX_LAST_ADDED_COSTUMER = -1

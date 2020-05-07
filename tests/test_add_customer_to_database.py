@@ -18,7 +18,7 @@ class test_add_new_customer_to_database(unittest.TestCase,TestingShortcuts):
             os.remove(db_file)
         self.dm = DataManager()
         with redirect_stdout(StringIO()) as stdout:
-            self.dm.db.create_table_customer()
+            self.dm.db.create_table_customers()
 
 
     def test_add_customer_id_1_to_database(self):

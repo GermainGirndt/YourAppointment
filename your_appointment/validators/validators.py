@@ -198,3 +198,34 @@ class Validators():
             self.sanitize_input()
         self.checks += 1
         return self.value_to_validate
+
+    def validate_appointment_day(self):
+        self.value_name = "Appointment's day"
+        self.validate_date()
+        sorted_date = datetime.strptime(self.value_to_validate, "%d-%m-%Y").strftime("%Y-%m-%d")
+        return sorted_date
+
+    def validate_appointment_duration(self):
+        self.value_name = "Appointment's duration"
+        while self.checks < 2:
+            self.validate_length_equals_to(11)
+            self.validate_format()
+        return self.value_to_validate
+
+    def validate_length_equals_to(self, length):
+        if len(self.value_to_validate) != length:
+            self.checks = 0
+            print(f"Invalid input. The {self.value_to_validate} muss have 11 characters")
+            self.value_to_validate = input(f"Enter the {self.value_name} (HH:MM-HH:MM): ")
+            self.sanitize_input()
+        self.checks += 1
+
+    def validate_format(self):
+        import re
+        regular_expression = r"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]-([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+        while not re.match(regular_expression, self.value_to_validate):
+            self.checks = 0
+            print(f"Invalid input. The input doesn't comply to the required format")
+            self.value_to_validate = input(f"Enter the {self.value_name} (HH:MM-HH:MM): ")
+            self.sanitize_input()
+        self.checks += 1

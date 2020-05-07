@@ -64,3 +64,16 @@ class ConsoleGetter():
         v = Validators(customer_id)
         validated_customer_id = v.validate_customer_id()
         return validated_customer_id
+
+    @staticmethod
+    def get_appointment_day():
+        appointment_day = input("Enter the appointment's day: ")
+        v = Validators(appointment_day)
+        validated_appointment_day = v.validate_appointment_day()
+        return validated_appointment_day
+
+    def get_appointment_duration(self):
+        appointment_duration = input("Enter the Appointment's duration (HH:MM-HH:MM): ")
+        v = Validators(appointment_duration)
+        validated_appointment_duration = v.validate_appointment_duration()
+        return validated_appointment_duration

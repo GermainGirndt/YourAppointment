@@ -114,7 +114,8 @@ class ConsoleUI():
         EXCLUDE_APPOINTMENT = "3"
         if self.selected_class_action == ADD_APPOINTMENT:
             print("Selected Option: Add Appointment\n\n")
-            #Create new appointment function
+            self.dm.db.create_table_appointments()
+            self.dm.add_new_appointment_to_database()
 
         elif self.selected_class_action == SEARCH_APPOINTMENT:
             print("Selected Option: Search Appointment\n\n")
@@ -158,3 +159,4 @@ class ConsoleUI():
 
 if __name__ == "__main__":
     c = ConsoleUI()
+    c.initialize()
