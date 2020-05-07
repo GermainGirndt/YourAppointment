@@ -21,16 +21,15 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
     #Customer class
     CREATE_CUSTOMER = "1"
     READ_CUSTOMER = "2"
-    UPDATE_CUSTOMER = "3"
-    EXCLUDE_CUSTOMER = "4"
+    EXCLUDE_CUSTOMER = "3"
     #Appointment class
     CREATE_APPOINTMENT = "1"
     READ_APPOINTMENT = "2"
-    UPDATE_APPOINTMENT = "3"
-    EXCLUDE_APPOINTMENT = "4"
+    EXCLUDE_APPOINTMENT = "3"
 
-    INPUTS_SELECT_ACTION_CREATE_CUSTOMERS = [CUSTOMER_CLASS, CREATE_CUSTOMER]
-    INPUTS_SELECT_ACTION_READ_CUSTOMERS = [CUSTOMER_CLASS, READ_CUSTOMER]
+    INPUTS_SELECT_ACTION_CREATE_CUSTOMER = [CUSTOMER_CLASS, CREATE_CUSTOMER]
+    INPUTS_SELECT_ACTION_READ_CUSTOMER = [CUSTOMER_CLASS, READ_CUSTOMER]
+    INPUTS_SELECT_ACTION_EXCLUDE_CUSTOMER = [CUSTOMER_CLASS, EXCLUDE_CUSTOMER]
 
     def setUp(self):
         db_file = "YourAppointment.db"
@@ -42,7 +41,7 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
         self.console_ui = ConsoleUI()
 
     def test_execute_customer_action_create_customer(self):
-        create_customer_id_1_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMERS + self.RIGHT_INPUTS_CUSTOMER_ID_1
+        create_customer_id_1_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMER + self.RIGHT_INPUTS_CUSTOMER_ID_1
         self.shortcut_test_console_ui_inputs(
             inputs=create_customer_id_1_inputs,
             testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
@@ -51,23 +50,34 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
 
     def test_execute_customer_action_create_2_customers(self):
         self.test_execute_customer_action_create_customer()
-        create_customer_id_2_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMERS + self.RIGHT_INPUTS_CUSTOMER_ID_2
+        create_customer_id_2_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMER + self.RIGHT_INPUTS_CUSTOMER_ID_2
         self.shortcut_test_console_ui_inputs(
             inputs=create_customer_id_2_inputs,
             testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
             parameter=(self.DB_RIGHT_RETURN_CUSTOMER_ID_2)
         )
 
-    def test_execute_customer_action_read_customers_table_by_name(self):
+    def test_execute_customer_action_read_customer_by_name(self):
         self.test_execute_customer_action_create_customer()
-        expected_message = f"{self.DB_RIGHT_RETURN_CUSTOMER_ID_1}"
         customer_id_1_name = "João"
-        read_customer_inputs = self.INPUTS_SELECT_ACTION_READ_CUSTOMERS + [customer_id_1_name]
+        read_customer_inputs = self.INPUTS_SELECT_ACTION_READ_CUSTOMER + [customer_id_1_name]
+        expected_message = f"{self.DB_RIGHT_RETURN_CUSTOMER_ID_1}"
         self.shortcut_test_console_ui_inputs(
             inputs=read_customer_inputs,
             testing_function=self.shortcut_test_if_expected_message_in_console_stdoutput,
             parameter=expected_message,
             use_printed_messages=True
+        )
+
+    def test_execute_customer_action_exclude_by_id(self):
+        self.test_execute_customer_action_create_customer()
+        customer_id_1_id = "1"
+        read_customer_inputs = self.INPUTS_SELECT_ACTION_EXCLUDE_CUSTOMER + [customer_id_1_id]
+        expectedOutput = self.shortcut_set_customer_to_inactive(self.DB_RIGHT_RETURN_CUSTOMER_ID_1)
+        self.shortcut_test_console_ui_inputs(
+            inputs=read_customer_inputs,
+            testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
+            parameter=expectedOutput
         )
 
 if __name__ == "__main__":

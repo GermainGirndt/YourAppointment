@@ -57,3 +57,10 @@ class ConsoleGetter():
         v = Validators(customer_address_state)
         validated_customer_address_state = v.validate_customer_adress_state()
         return validated_customer_address_state
+
+    @staticmethod
+    def get_customer_id():
+        customer_id = input("Enter the customer's ID: ")
+        v = Validators(customer_id)
+        validated_customer_id = v.validate_customer_id()
+        return validated_customer_id

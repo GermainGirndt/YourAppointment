@@ -77,11 +77,10 @@ class ConsoleUI():
             "Select the Database's action:\n" \
                "1 - Add Appointment\n" \
                "2 - Search Appointment\n" \
-               "3 - Update Appointment\n" \
-               "4 - Delete Appointment\n" \
+               "3 - Delete Appointment\n" \
                "9 - Return\n" \
                ""
-        VALID_OPTIONS = ["1","2", "3", "4", "9"]
+        VALID_OPTIONS = ["1","2", "3", "9"]
         self.get_user_input(CHOOSE_OPTION_TEXT, VALID_OPTIONS)
 
 
@@ -90,12 +89,11 @@ class ConsoleUI():
             "Select the Database's action:\n" \
                "1 - Add Customer\n" \
                "2 - Search Customer\n" \
-               "3 - Update Customer\n" \
-               "4 - Delete Customer\n" \
+               "3 - Delete Customer\n" \
                "9 - Return\n" \
                ""
 
-        VALID_OPTIONS = ["1","2", "3", "4", "9"]
+        VALID_OPTIONS = ["1","2", "3", "9"]
         self.get_user_input(CHOOSE_OPTION_TEXT, VALID_OPTIONS)
 
 
@@ -113,8 +111,7 @@ class ConsoleUI():
     def execute_appointment_action(self):
         ADD_APPOINTMENT = "1"
         SEARCH_APPOINTMENT = "2"
-        UPDATE_APPOINTMENT = "3"
-        EXCLUDE_APPOINTMENT = "4"
+        EXCLUDE_APPOINTMENT = "3"
         if self.selected_class_action == ADD_APPOINTMENT:
             print("Selected Option: Add Appointment\n\n")
             #Create new appointment function
@@ -122,10 +119,6 @@ class ConsoleUI():
         elif self.selected_class_action == SEARCH_APPOINTMENT:
             print("Selected Option: Search Appointment\n\n")
             # Create read appointment function
-
-        elif self.selected_class_action == UPDATE_APPOINTMENT:
-            print("Selected Option: Update Appointment\n\n")
-            #Create update appointment function
 
         elif self.selected_class_action == EXCLUDE_APPOINTMENT:
             print("Selected Option: Delete Appointment\n\n")
@@ -137,28 +130,25 @@ class ConsoleUI():
     def execute_customer_action(self):
         CREATE_CUSTOMER = "1"
         SEARCH_CUSTOMER = "2"
-        UPDATE_CUSTOMER = "3"
-        EXCLUDE_CUSTOMER = "4"
+        EXCLUDE_CUSTOMER = "3"
 
         if self.selected_class_action == CREATE_CUSTOMER:
             print("Selected Option: Add Customer\n\n")
-            #Create new customer function
             self.dm.add_new_customer_to_database()
+
         elif self.selected_class_action == SEARCH_CUSTOMER:
             print("Selected Option: Search Customer\n\n")
-            forename = ConsoleGetter().get_customer_forename()
+            forename_to_search = ConsoleGetter().get_customer_forename()
             db_retuns = self.dm.db.select_entry_by_value(
                 table="customers",
                 column="FORENAME",
-                value=forename)
+                value=forename_to_search)
             print(db_retuns)
 
-        elif self.selected_class_action == UPDATE_CUSTOMER:
-            print("Selected Option: Update Customer\n\n")
-            #Create update customer function
         elif self.selected_class_action == EXCLUDE_CUSTOMER:
             print("Selected Option: Delete Customer\n\n")
-            #Create Delete customer function
+            id_of_customer_to_exclude = ConsoleGetter().get_customer_id()
+            self.dm.db.exclude_customer_by_id(id_of_customer_to_exclude)
         else:
             raise ValueError
         self.actual_screen = self.CLASS_SELECTION_SCREEN

@@ -186,5 +186,15 @@ class Validators():
             print(f"Invalid input. {self.value_to_validate} is no valid option")
             self.value_to_validate = input(choose_option_text)
             self.sanitize_input()
-            self.checks += 1
+        self.checks += 1
+        return self.value_to_validate
+
+    def validate_customer_id(self):
+        self.value_name = "Customer's ID"
+        while not self.value_to_validate.isnumeric():
+            self.checks = 0
+            print(f"Invalid input. {self.value_to_validate} muss be a number")
+            self.value_to_validate = input(f"Enter the {self.value_name}: ")
+            self.sanitize_input()
+        self.checks += 1
         return self.value_to_validate

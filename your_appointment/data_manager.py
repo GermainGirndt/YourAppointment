@@ -108,6 +108,16 @@ class Database():
 		obj = self.c.fetchall()
 		return obj
 
+	def exclude_customer_by_id(self, customer_id):
+		customer_id = str(customer_id)
+		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute("SELECT * FROM customers")
+		self.c.execute(f"UPDATE customers SET STATUS = 'Inactive' WHERE CUSTOMER_ID = {customer_id}")
+		self.c.execute(f"SELECT * FROM customers WHERE CUSTOMER_ID = '{customer_id}'")
+		obj = self.c.fetchall()
+		print(f"Customer updated to {obj}")
+
+
 	def add_new_customer(self, new_customer):
 		self.conn = sqlite3.connect('YourAppointment.db')
 		self.c.execute("""INSERT INTO customers(

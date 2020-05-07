@@ -173,6 +173,14 @@ class TestingShortcuts():
         self.assertIn(expected_message, printed_messages)
 
 
+    def shortcut_set_customer_to_inactive(self, db_customer):
+        toList = list(db_customer)
+        toList[-1] = "Inactive"
+        tuple_inactived_customer = tuple(toList)
+        return tuple_inactived_customer
+
+
+
 
 
 
