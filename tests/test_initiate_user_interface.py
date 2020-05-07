@@ -42,23 +42,20 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
 
     def test_execute_customer_action_create_customer(self):
         create_customer_id_1_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMERS + self.RIGHT_INPUTS_CUSTOMER_ID_1
-        try:
-            with redirect_stdout(StringIO()) as stdout:
-                with mock.patch('builtins.input', side_effect=create_customer_id_1_inputs):
-                    self.console_ui.initialize()
-        except StopIteration:
-            self.shortcut_console_ui_test_if_customer_in_db_by_id(self.DB_RIGHT_RETURN_CUSTOMER_ID_1)
-
+        self.shortcut_test_console_ui_inputs(
+            inputs=create_customer_id_1_inputs,
+            testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
+            parameter=(self.DB_RIGHT_RETURN_CUSTOMER_ID_1)
+        )
 
     def test_execute_customer_action_create_2_customers(self):
         self.test_execute_customer_action_create_customer()
-        create_customer_id_1_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMERS + self.RIGHT_INPUTS_CUSTOMER_ID_2
-        try:
-            with redirect_stdout(StringIO()) as stdout:
-                with mock.patch('builtins.input', side_effect=create_customer_id_1_inputs):
-                    self.console_ui.initialize()
-        except StopIteration:
-            self.shortcut_console_ui_test_if_customer_in_db_by_id(self.DB_RIGHT_RETURN_CUSTOMER_ID_2)
+        create_customer_id_2_inputs = self.INPUTS_SELECT_ACTION_CREATE_CUSTOMERS + self.RIGHT_INPUTS_CUSTOMER_ID_2
+        self.shortcut_test_console_ui_inputs(
+            inputs=create_customer_id_2_inputs,
+            testing_function=self.shortcut_console_ui_test_if_customer_in_db_by_id,
+            parameter=(self.DB_RIGHT_RETURN_CUSTOMER_ID_2)
+        )
 
 if __name__ == "__main__":
     unittest.main()

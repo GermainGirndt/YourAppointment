@@ -158,5 +158,15 @@ class TestingShortcuts():
             self.console_ui.dm.db.select_by_customer_id(table="customers", customer_id=customer_id))
 
 
+    def shortcut_test_console_ui_inputs(self, inputs, testing_function, parameter):
+        try:
+            with redirect_stdout(StringIO()):
+                with mock.patch('builtins.input', side_effect=inputs):
+                    self.console_ui.initialize()
+        except StopIteration:
+            testing_function(parameter)
+
+
+
 
 
