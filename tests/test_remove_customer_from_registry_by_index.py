@@ -11,7 +11,7 @@ from test_add_customer_to_registry import TestAddCustomerToRegistry
 
 
 
-class test_remove_customer_by_index(TestingShortcuts):
+class test_remove_customer_from_registry_by_index(TestingShortcuts):
 
 	def setUp(self):
 		self.dm_instance = Dm()
