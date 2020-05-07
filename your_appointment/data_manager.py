@@ -72,6 +72,12 @@ class Database():
 		            REGISTER_TIME TEXT,
 		            STATUS TEXT
 		            )""")
+
+		try:
+			self.c.execute(f"SELECT * FROM customers")
+			print(f"Customers Table Created!")
+		except:
+			print("An error ocurred by the creation from a table")
 		self.commit_and_close()
 
 
@@ -114,13 +120,20 @@ class Database():
 		            REGISTER_DATE,
 		            REGISTER_TIME,
 		            STATUS
-		            ) VALUES (:fn, :sn, :fln, :bd, :in, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
+		            ) VALUES (:fn, :sn, :fln, :bd, :pid, :asn, :ao, :ac, :as, :rd, :rt, :st)""",
 				  {'fn': new_customer.forename, 'sn': new_customer.surname, 'fln': new_customer.fullname,
-				   'bd': new_customer.birthday, 'in': new_customer.personal_id,
+				   'bd': new_customer.birthday, 'pid': new_customer.personal_id,
 				   'asn': new_customer.address_street_and_number,
 				   'ao': new_customer.address_other, 'ac': new_customer.address_city,
 				   'as': new_customer.address_state, 'rd': new_customer.register_date,
 				   'rt': new_customer.register_time, 'st': new_customer.status})
+
+		try:
+			self.c.execute(f"SELECT * FROM customers WHERE CUSTOMER_ID = (SELECT max(CUSTOMER_ID) FROM customers)")
+			obj = self.c.fetchone()
+			print(f"Last customer added:{obj}")
+		except:
+			print("An error ocurred by inserting the customer to the table")
 		self.commit_and_close()
 
 
