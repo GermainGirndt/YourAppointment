@@ -84,7 +84,7 @@ class TestUserInterface(TestingShortcuts, unittest.TestCase):
 
 
     def test_execute_appointment_action_create_appointment(self):
-
+        self.test_execute_customer_action_create_customer()
         create_appointment_inputs = self.INPUTS_SELECT_ACTION_CREATE_APPOINTMENT + self.RIGHT_INPUTS_APPOINTMENT_ID_1_OF_CUSTOMER_ID_1
 
         self.shortcut_test_console_ui_inputs(

@@ -79,6 +79,7 @@ class Database():
 
 	def create_table_appointments(self):
 		self.conn = sqlite3.connect('YourAppointment.db')
+		self.c.execute("PRAGMA foreign_keys = ON;")
 		self.c.execute("""CREATE TABLE IF NOT EXISTS appointments (
 					APPOINTMENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		            CUSTOMER_ID INTEGER,
@@ -87,11 +88,11 @@ class Database():
 		            REGISTER_DATE TEXT,
 		            REGISTER_TIME TEXT,
 		            STATUS TEXT,
-		            FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(CUSTOMER_ID)
-		            )""")
+		            FOREIGN KEY(CUSTOMER_ID) REFERENCES customers (CUSTOMER_ID)
+		            );""")
 
 		try:
-			self.c.execute(f"SELECT * FROM customers")
+			self.c.execute(f"SELECT * FROM customers;")
 			print(f"Appointments Table Created!")
 		except:
 			print("An error ocurred by the creation from a table")
@@ -168,7 +169,7 @@ class Database():
 				   'rt': new_customer.register_time, 'st': new_customer.status})
 
 		try:
-			self.c.execute(f"SELECT * FROM customers WHERE CUSTOMER_ID = (SELECT max(CUSTOMER_ID) FROM customers)")
+			self.c.execute(f"SELECT * FROM customers WHERE CUSTOMER_ID = (SELECT max(CUSTOMER_ID) FROM customers);")
 			obj = self.c.fetchone()
 			print(f"Last customer added:{obj}")
 		except:

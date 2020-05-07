@@ -135,6 +135,7 @@ class ConsoleUI():
 
         if self.selected_class_action == CREATE_CUSTOMER:
             print("Selected Option: Add Customer\n\n")
+            self.dm.db.create_table_customers()
             self.dm.add_new_customer_to_database()
 
         elif self.selected_class_action == SEARCH_CUSTOMER:
